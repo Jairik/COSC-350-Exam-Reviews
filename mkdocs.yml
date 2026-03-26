@@ -1,0 +1,21 @@
+site_name: COSC 350 Exam Reviews
+site_description: Supplemental exam review questions for COSC 350 (Operating Systems) at Salisbury University
+site_author: COSC 350 Students
+
+nav:
+  - Home: index.md
+  - Midterm 1 Review:
+    - Processes: midterm1/processes.md
+    - CPU Scheduling: midterm1/cpu-scheduling.md
+    - Threads: midterm1/threads.md
+  - Midterm 2 Review:
+    - Synchronization: midterm2/synchronization.md
+    - Deadlocks: midterm2/deadlocks.md
+    - Memory Management: midterm2/memory-management.md
+  - Final Exam Review:
+    - File Systems: final/file-systems.md
+    - I/O Systems: final/io-systems.md
+    - Virtual Machines: final/virtual-machines.md
+
+theme:
+  name: readthedocs
