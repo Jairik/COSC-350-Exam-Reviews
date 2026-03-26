@@ -28,10 +28,29 @@ states, and management is fundamental to operating systems.
 
 ## Hints
 
-??? note "Hint for Question 2"
-    A process moves from Running to Waiting when it initiates an I/O request or waits
-    for an event (e.g., a semaphore). It returns to Ready when the I/O completes.
+<details>
+<summary>Hint for Question 2</summary>
 
-??? note "Hint for Question 5"
-    `fork()` returns `0` to the child process and the child's PID to the parent process.
-    Both parent and child continue executing from the point after the `fork()` call.
+A process moves from Running to Waiting when it initiates an I/O request or waits
+for an event (e.g., a semaphore). It returns to Ready when the I/O completes.
+
+</details>
+
+<details>
+<summary>Hint for Question 5</summary>
+
+`fork()` returns `0` to the child process and the child's PID to the parent process.
+Both parent and child continue executing from the point after the `fork()` call.
+
+</details>
+
+## Suggested Answers
+
+1. A PCB stores PID, process state, program counter, CPU registers, scheduling/accounting data, memory-management pointers, and open-file information.
+2. Running to Waiting happens when the process blocks (for example, I/O request, sleep, or waiting on a synchronization event).
+3. A program is passive code on disk; a process is an active executing instance with runtime state and resources.
+4. Cooperative multitasking relies on voluntary yield; preemptive multitasking allows the OS to interrupt via timer and reschedule.
+5. Two processes run after `fork()`: child gets return value `0`, parent gets child's PID (>0).
+6. Shared memory is fast and flexible but needs explicit synchronization; message passing is safer/easier to reason about but has extra kernel copy/scheduling overhead.
+7. A zombie is a terminated process whose exit status was not collected. Prevent with `wait()/waitpid()`, a `SIGCHLD` handler, or a supervisor that reaps children.
+8. Context switch steps: save current CPU state to PCB, mark state, choose next runnable process, load next process context/MMU mappings, resume execution.

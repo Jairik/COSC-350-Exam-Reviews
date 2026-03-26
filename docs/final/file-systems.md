@@ -34,12 +34,30 @@ of files and directories.
 
 ## Hints
 
-??? note "Hint for Question 1"
-    Contiguous: fast sequential access, but external fragmentation. Linked: no external
-    fragmentation, but slow random access. Indexed: supports direct access, but overhead
-    from index blocks.
+<details>
+<summary>Hint for Question 1</summary>
 
-??? note "Hint for Question 3"
-    A hard link is a directory entry pointing directly to the inode. A symbolic link
-    is a file containing the path to the target; it can cross file system boundaries,
-    but breaks if the target is deleted.
+Contiguous: fast sequential access, but external fragmentation. Linked: no external
+fragmentation, but slow random access. Indexed: supports direct access, but overhead
+from index blocks.
+
+</details>
+
+<details>
+<summary>Hint for Question 3</summary>
+
+A hard link is a directory entry pointing directly to the inode. A symbolic link
+is a file containing the path to the target; it can cross file system boundaries,
+but breaks if the target is deleted.
+
+</details>
+
+## Suggested Answers
+
+1. Contiguous allocation is simple/fast for sequential reads but suffers external fragmentation and poor growth; linked allocation grows easily but is slow for random access; indexed allocation supports direct access but needs index-block overhead.
+2. A bit vector for 200 blocks needs 200 bits (`25 bytes`). Bit vectors support fast free-space scanning and compact representation compared with pointer-chasing linked lists.
+3. Hard links reference the same inode and share metadata/data blocks. Symbolic links store a pathname and can cross filesystems but can dangle.
+4. VFS provides a uniform API (`open/read/write/...`) and dispatches operations to filesystem-specific implementations through common inode/superblock interfaces.
+5. Journaling records metadata (and sometimes data) updates before commit, enabling fast crash recovery and reducing corruption risk after power loss.
+6. Indexed allocation stores pointers in an index block (or inode pointer levels). Multi-level indexing scales to large files while keeping small-file access efficient.
+7. Mounting attaches a filesystem to the directory tree at a mount point. Unmounting flushes pending writes, detaches it from namespace, and blocks new access to that tree.

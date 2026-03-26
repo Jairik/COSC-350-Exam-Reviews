@@ -35,11 +35,29 @@ run on a single physical machine.
 
 ## Hints
 
-??? note "Hint for Question 1"
-    A Type 1 hypervisor has direct access to hardware and is more efficient. A Type 2
-    hypervisor relies on the host OS for hardware access, adding overhead but making
-    installation easier.
+<details>
+<summary>Hint for Question 1</summary>
 
-??? note "Hint for Question 5"
-    VMs include a full guest OS kernel; containers share the host OS kernel. Containers
-    are more lightweight but provide weaker isolation.
+A Type 1 hypervisor has direct access to hardware and is more efficient. A Type 2
+hypervisor relies on the host OS for hardware access, adding overhead but making
+installation easier.
+
+</details>
+
+<details>
+<summary>Hint for Question 5</summary>
+
+VMs include a full guest OS kernel; containers share the host OS kernel. Containers
+are more lightweight but provide weaker isolation.
+
+</details>
+
+## Suggested Answers
+
+1. A hypervisor/VMM virtualizes hardware for guest OSes. Type 1 runs directly on hardware (e.g., ESXi, Hyper-V bare-metal), Type 2 runs on a host OS (e.g., VirtualBox).
+2. Virtualization improves utilization and isolation, enables server consolidation, simplifies provisioning/snapshots, and supports migration/disaster recovery.
+3. Full virtualization runs unmodified guests (easier compatibility) but can have overhead; paravirtualization modifies guest interfaces to reduce traps/overhead but needs guest support.
+4. Hardware-assisted virtualization adds CPU support for privileged instruction handling and nested state transitions, reducing trap-and-emulate overhead.
+5. VMs virtualize full machines (stronger isolation, higher overhead). Containers share the host kernel (lighter weight, faster start, typically weaker isolation boundary).
+6. Live migration moves a running VM between hosts by pre-copying memory, briefly pausing to transfer dirty pages/CPU state, then resuming on target with minimal downtime.
+7. The VMM traps or mediates privileged guest operations and either emulates them, maps them safely to hardware, or rejects them based on isolation policy.

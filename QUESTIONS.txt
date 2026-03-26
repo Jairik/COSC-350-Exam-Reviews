@@ -1,0 +1,58 @@
+COSC350 Study Questions
+
+Total Questions: 46
+
+Conceptual Questions (1-28)
+
+1. What are system calls, and why are they needed?
+2. What is the difference between user mode and kernel mode?
+3. Why are system calls expensive?
+4. What are the main categories of system calls?
+5. Give two examples of system calls in different categories.
+6. Why do library functions use buffering?
+7. When is a system call triggered from a library call?
+8. What is a file descriptor?
+9. What do file descriptors 0, 1, 2 represent?
+10. What does an inode store?
+11. What does a directory store?
+12. When is a file deleted?
+13. What is a file offset?
+14. What does lseek() do?
+15. What is the key advantage of pread() and pwrite()?
+16. What are the permission groups?
+17. How is final permission calculated?
+18. What are common open() flags and what do they do?
+19. What is the difference between creat() and open()?
+20. How do you determine file type using stat()?
+21. Difference between hard and symbolic links?
+22. What are limitations of hard links?
+23. What are the three kernel structures for file sharing?
+24. What is stored in /etc/passwd vs /etc/shadow?
+25. What are the five memory segments?
+26. Difference between malloc, calloc, realloc, free?
+27. Why does OS restrict hardware access?
+28. Why is buffering important?
+
+Application Questions (29-34)
+
+29. Why is moving a file fast?
+30. Why use pread() in real systems?
+31. Why are symbolic links widely used?
+32. Why does /etc/shadow exist?
+33. How do logs handle multiple writers?
+34. Why are sparse files useful?
+
+Practice / Analysis Questions (35-46)
+
+35. Identify issues
+36. Write logic
+37. Predict output
+38. What happens?
+39. What does this do?
+40. Why is this safe?
+41. Where does output go?
+42. Compute
+43. Result
+44. Extract info
+45. What happens?
+46. Why can this fail?

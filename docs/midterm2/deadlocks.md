@@ -40,11 +40,29 @@ prevention, and avoidance is essential for OS design.
 
 ## Hints
 
-??? note "Hint for Question 1"
-    Yes, all four conditions must hold simultaneously for deadlock to occur. Negating even
-    one condition is sufficient to prevent deadlock.
+<details>
+<summary>Hint for Question 1</summary>
 
-??? note "Hint for Question 4"
-    Calculate the Need matrix (Need = Max − Allocation). Then simulate resource allocation
-    by finding a process whose Need ≤ Available, granting it resources, and releasing them
-    upon completion.
+Yes, all four conditions must hold simultaneously for deadlock to occur. Negating even
+one condition is sufficient to prevent deadlock.
+
+</details>
+
+<details>
+<summary>Hint for Question 4</summary>
+
+Calculate the Need matrix (Need = Max - Allocation). Then simulate resource allocation
+by finding a process whose Need <= Available, granting it resources, and releasing them
+upon completion.
+
+</details>
+
+## Suggested Answers
+
+1. The four conditions are mutual exclusion, hold-and-wait, no preemption, and circular wait. Yes, all four must hold simultaneously for deadlock.
+2. In a resource-allocation graph, a cycle implies possible deadlock; with single-instance resources, a cycle implies deadlock.
+3. A safe state is one where at least one completion order (safe sequence) exists so all processes can finish. Avoidance keeps the system in safe states.
+4. Need matrix (`Max - Allocation`) gives: P0(7,4,3), P1(1,2,2), P2(6,0,0), P3(0,1,1), P4(4,3,1). With Available(3,3,2), one safe sequence is `<P1, P3, P4, P0, P2>`.
+5. Prevention structurally blocks at least one necessary deadlock condition up front; avoidance evaluates each request dynamically and grants only if state remains safe.
+6. Recovery strategies include terminating one/all deadlocked processes, or preempting resources and rolling back selected victims.
+7. Many general systems ignore deadlocks because true deadlocks are infrequent, prevention/avoidance can be costly, and operational recovery (restart/kill) is often cheaper in practice.

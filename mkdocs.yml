@@ -12,6 +12,7 @@ nav:
     - Synchronization: midterm2/synchronization.md
     - Deadlocks: midterm2/deadlocks.md
     - Memory Management: midterm2/memory-management.md
+    - Interactive Question Bank: question-bank.md
   - Final Exam Review:
     - File Systems: final/file-systems.md
     - I/O Systems: final/io-systems.md
@@ -19,3 +20,9 @@ nav:
 
 theme:
   name: readthedocs
+
+extra_css:
+  - stylesheets/question-bank.css
+
+extra_javascript:
+  - javascripts/question-bank.js
