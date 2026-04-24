@@ -25,7 +25,6 @@ function getTopicScore(topic) {
 }
 
 function Dashboard({ topics, mockQuestions, onSelectTopic, onSelectMock }) {
-  // Mock final score
   const mockSaved = getStoredAnswers(MOCK_KEY);
   const mockMC = (mockQuestions || []).filter(q => q.type === 'mc');
   let mockCorrect = 0, mockAnswered = 0;
@@ -40,9 +39,9 @@ function Dashboard({ topics, mockQuestions, onSelectTopic, onSelectMock }) {
   return (
     <div className="fade-in">
       <header className="header">
-        <h1 className="header-title gradient-text">COSC350 Final Review</h1>
+        <h1 className="header-title gradient-text">COSC 350 Final Review</h1>
         <p className="header-subtitle">
-          Walk through every topic, then test yourself with the mock final.
+          Walk through every topic, then put it all together with the mock final.
         </p>
       </header>
 
@@ -52,14 +51,22 @@ function Dashboard({ topics, mockQuestions, onSelectTopic, onSelectMock }) {
           <div className="mock-final-card interactive-card" onClick={onSelectMock} style={{ cursor: 'pointer' }}>
             <div>
               <h3>Cumulative Mock Final</h3>
-              <p>25 questions covering all lecture notes.</p>
+              <p>25 questions spanning all lecture material.</p>
               {mockAnswered > 0 && (
-                <div className="card-score" style={{ marginTop: '0.75rem', opacity: 0.9 }}>
+                <div className="card-score" style={{ marginTop: '0.75rem' }}>
                   ✓ {mockCorrect}/{mockMC.length} correct
                 </div>
               )}
             </div>
-            <button className="btn-primary" style={{ backgroundColor: 'var(--surface)', color: 'var(--primary)' }}>
+            <button
+              className="btn-primary"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(8px)',
+                color: '#ffffff',
+                border: '1px solid rgba(255,255,255,0.25)',
+              }}
+            >
               {mockAnswered > 0 ? 'Continue' : 'Begin'}
             </button>
           </div>
@@ -71,20 +78,20 @@ function Dashboard({ topics, mockQuestions, onSelectTopic, onSelectMock }) {
             {topics.map((topic, index) => {
               const score = getTopicScore(topic);
               return (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="interactive-card"
                   onClick={() => onSelectTopic(topic)}
                 >
                   <div className="topic-title">{topic.title}</div>
                   <div className="topic-stats">
-                    <span className="stat-badge">{topic.questions.length} Questions</span>
+                    <span className="stat-badge">{topic.questions.length} Qs</span>
                     {score.answered > 0 && (
                       <span className="card-score" style={{ marginLeft: '0.5rem' }}>
                         ✓ {score.correct}/{score.total}
                       </span>
                     )}
-                    <ChevronRight style={{ marginLeft: 'auto', color: 'var(--outline-variant)' }} />
+                    <ChevronRight style={{ marginLeft: 'auto', color: 'var(--text-tertiary)', width: 18, height: 18 }} />
                   </div>
                 </div>
               );
