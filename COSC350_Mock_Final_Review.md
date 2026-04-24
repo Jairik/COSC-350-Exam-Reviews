@@ -30,164 +30,164 @@ This review ties together concepts from:
 # Part I - Multiple Choice
 
 ## 1.
-Which directory is primarily associated with system configuration files?
+What is the main benefit of shared libraries over static libraries?
 
-A. `/lib`  
-B. `/etc`  
-C. `/dev`  
-D. `/boot`
+A. Shared libraries run in kernel mode  
+B. Shared libraries are loaded once in memory and shared across programs, reducing duplication  
+C. Static libraries are not supported by modern compilers  
+D. Shared libraries cannot be updated independently
 
 ---
 
 ## 2.
-Which option tells `gcc` to search an additional directory for header files?
+What do the `-I`, `-L`, and `-l` compiler flags control?
 
-A. `-l`  
-B. `-L`  
-C. `-I`  
-D. `-c`
+A. `-I` sets library paths, `-L` sets header paths, `-l` sets the output name  
+B. `-I` adds header search paths, `-L` adds library search paths, `-l` names a library to link against  
+C. All three are synonyms for include paths  
+D. They control optimization levels
 
 ---
 
 ## 3.
-In a shell script, which statement about variables is correct?
+What is the key difference between single quotes and double quotes in shell?
 
-A. Variable names may begin with a number  
-B. Whitespace is allowed around `=` in assignment  
-C. Variables are referenced with `$`  
-D. Shell variables are case-insensitive
+A. Single quotes allow variable expansion; double quotes do not  
+B. Double quotes allow variable expansion while preserving spaces; single quotes treat everything literally  
+C. Both behave identically  
+D. Double quotes are only for filenames
 
 ---
 
 ## 4.
-A shell function uses `return 300`. Based on the notes, what is the key issue?
+Why can a shell function `return 300` produce incorrect results?
 
-A. Shell functions cannot return integers  
-B. Return values are limited to the range 0 to 255  
-C. `return` can only be used in loops  
-D. The value is stored in `$0`
+A. Shell functions cannot return anything  
+B. Shell `return` values are limited to the range 0–255  
+C. `return` only works in loops  
+D. 300 is stored in `$0`
 
 ---
 
 ## 5.
-Which statement best distinguishes a system call from a library call?
+Why are system calls more expensive than library calls?
 
-A. Library calls run in kernel mode only  
-B. System calls avoid context switching  
-C. Library calls commonly use buffering in user space  
-D. System calls are always faster than library calls
+A. System calls always perform disk I/O  
+B. System calls require switching between user mode and kernel mode, with full state save/restore  
+C. Library calls cannot access files  
+D. System calls are always slower because they are interpreted
 
 ---
 
 ## 6.
-What does `open("file", O_WRONLY | O_CREAT | O_EXCL, 0644)` guarantee if it succeeds?
+What does the combination `O_CREAT | O_EXCL` guarantee when passed to `open()`?
 
-A. The file existed and was truncated  
-B. The file is opened only if it already exists  
-C. A new file was created and the call failed if it already existed  
-D. The file was opened in append mode
+A. The file is opened only if it already exists  
+B. A new file is created; the call fails if the file already exists  
+C. The file is truncated  
+D. The file is opened in append mode
 
 ---
 
 ## 7.
-Which statement about `lseek()` is correct?
+What is the key advantage of `pread()`/`pwrite()` over `lseek()` + `read()`/`write()`?
 
-A. It changes file permissions  
-B. It repositions the file offset of an open file  
-C. It only works on pipes  
-D. It always moves to the end of a file
+A. They bypass file permissions  
+B. They perform I/O at a given offset without changing the shared file offset  
+C. They only work on pipes  
+D. They are always faster
 
 ---
 
 ## 8.
-Why are `pread()` and `pwrite()` especially useful in multithreaded programs?
+Why is `pread()` especially useful in multithreaded programs?
 
-A. They automatically lock the file  
-B. They work on sockets and pipes only  
-C. They perform I/O at a given offset without changing the shared file offset  
-D. They bypass the kernel
+A. It automatically locks the file  
+B. Multiple threads sharing the same descriptor can read different offsets without corrupting each other's position  
+C. It works only on sockets  
+D. It bypasses the kernel
 
 ---
 
 ## 9.
-Which function should be used when you want information about a symbolic link itself rather than the file it points to?
+What is the fundamental difference between `stat()` and `lstat()` when the path is a symbolic link?
 
-A. `stat()`  
-B. `fstat()`  
-C. `lstat()`  
-D. `utime()`
+A. They always return the same result  
+B. `stat()` follows the link to the target; `lstat()` reports on the link itself  
+C. `lstat()` follows the link; `stat()` does not  
+D. `lstat()` only works on directories
 
 ---
 
 ## 10.
-If `dup(fd)` succeeds, which statement is true?
+Why do two descriptors created by `dup()` share the same file offset?
 
-A. The new descriptor refers to a completely separate open file table entry  
-B. The original and duplicate descriptors share file offset and status flags  
-C. The new descriptor is always 255  
-D. The original descriptor is closed automatically
+A. They are separate file table entries  
+B. They point to the same file table entry, which contains the offset  
+C. The kernel copies the offset on every read  
+D. They don't share the offset
 
 ---
 
 ## 11.
-Which file stores hashed/encrypted password details and is normally accessible only by root?
+Why does `/etc/shadow` exist as a separate file from `/etc/passwd`?
 
-A. `/etc/passwd`  
-B. `/etc/group`  
-C. `/etc/services`  
-D. `/etc/shadow`
+A. They store identical information  
+B. `/etc/passwd` is world-readable; storing password hashes separately in root-only `/etc/shadow` limits exposure  
+C. `/etc/shadow` is for group info  
+D. `/etc/passwd` cannot store strings
 
 ---
 
 ## 12.
-Which memory region stores dynamically allocated memory from `malloc()` and `calloc()`?
+What is the purpose of the heap in a process's memory layout?
 
-A. Text segment  
-B. Stack  
-C. Heap  
-D. BSS
+A. Storing machine instructions  
+B. Holding dynamically allocated memory from `malloc()`, `calloc()`, etc.  
+C. Managing function call return addresses  
+D. Storing uninitialized static variables
 
 ---
 
 ## 13.
-After `fork()`, which statement is correct?
+How do parent and child distinguish themselves after `fork()`?
 
-A. Parent and child run in the exact same writable memory space  
-B. The child gets its own separate memory space, though some code/resources may still be shared  
-C. `fork()` returns 0 to the parent and positive to the child  
-D. The child receives no copy of the parent's data
+A. They cannot  
+B. `fork()` returns 0 to the child and the child's PID to the parent  
+C. `fork()` returns 0 to the parent and a negative value to the child  
+D. Both get the same return value
 
 ---
 
 ## 14.
-What is the main limitation of an unnamed pipe discussed in the notes?
+Why can't an unnamed pipe be used between two completely unrelated processes?
 
-A. It can only transfer integers  
-B. It can only be used between unrelated processes  
-C. It is half-duplex and typically used between related processes  
-D. It cannot be read with `read()`
+A. Pipes can only transfer integers  
+B. Pipe descriptors are inherited through `fork()`, so processes without a common ancestor can't access them  
+C. Unnamed pipes require root  
+D. Pipes are always bidirectional
 
 ---
 
 ## 15.
-Which statement about XSI message queues is correct?
+How do message queues differ from pipes in terms of message retrieval?
 
-A. Reading a message leaves it in the queue for the next process  
-B. Messages must always be received strictly in FIFO order  
-C. A queue is identified through a key and messages may be selected by type  
-D. `msgctl(..., IPC_RMID, ...)` pauses the queue
+A. Pipes allow type-based selection  
+B. Message queues allow receivers to select messages by type, not just strict FIFO order  
+C. Message queues are always FIFO  
+D. Pipes store messages permanently
 
 ---
 
 # Part II - Short Response
 
 ## 16.
-Explain the difference between a **static library** and a **shared library** in terms of how code is included and one practical consequence at runtime.
+Explain the difference between a **static library** and a **shared library** in terms of how code is included and what this means at runtime.
 
 ---
 
 ## 17.
-In shell programming, explain the difference between **global** and **local** variables inside functions. Why can this matter in a larger script?
+In shell programming, explain the difference between **global** and **local** variables inside functions. Why can this cause bugs in larger scripts?
 
 ---
 
@@ -197,19 +197,19 @@ Describe how **base permissions** and **umask** interact when a new file is crea
 ---
 
 ## 19.
-Compare **hard links** and **symbolic links**. Give two differences, including at least one filesystem-related limitation.
+Compare **hard links** and **symbolic links**. Give two concrete differences, including why hard links can't cross filesystems.
 
 ---
 
 ## 20.
-A parent process creates a child with `fork()` and wants to collect the child’s exit code. Explain the roles of `SIGCHLD`, `wait()`, and `WEXITSTATUS()`.
+After `fork()`, a parent wants to collect the child's exit code. Explain the roles of `SIGCHLD`, `wait()`, and `WEXITSTATUS()` in this process.
 
 ---
 
 # Part III - Applied / Code-Reasoning Questions
 
 ## 21.
-Consider the following C program fragment:
+Consider this C fragment:
 
 ```c
 int fd = open("out.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -219,12 +219,12 @@ lseek(fd2, 1, SEEK_SET);
 write(fd, "Z", 1);
 ```
 
-What is the final content of `out.txt` after the program finishes? Briefly explain why.
+What is the final content of `out.txt`? Explain why the `lseek` through `fd2` affects the write through `fd`.
 
 ---
 
 ## 22.
-A program does the following:
+A program does:
 
 ```c
 int fd = creat("hole.txt", 0644);
@@ -233,28 +233,19 @@ lseek(fd, 10, SEEK_SET);
 write(fd, "XYZ", 3);
 ```
 
-Answer all parts:
 1. What is the final file size?  
-2. What is the “hole” in the file?  
-3. Why is `lseek()` central to creating this result?
+2. What is the "hole" in the file?  
+3. Why is `lseek()` essential to creating this result?
 
 ---
 
 ## 23.
-You need communication between **two unrelated processes** started from different terminals.
-
-Choose the **best IPC mechanism from these notes** and justify your answer:
-- unnamed pipe
-- FIFO
-- signal
-- message queue
-
-Your answer should mention why at least one of the other choices is less appropriate for this exact scenario.
+You need communication between **two unrelated processes** started from different terminals. Choose the **best IPC mechanism** from the course and justify why at least one other choice is less appropriate.
 
 ---
 
 ## 24.
-Predict the behavior of this shell snippet:
+Predict the three output lines of this shell snippet and explain each:
 
 ```sh
 #!/bin/sh
@@ -264,140 +255,135 @@ echo "$x"
 echo '$x'
 ```
 
-What are the three output lines, and why are they different?
-
 ---
 
 ## 25.
-A sender process creates a message queue with `msgget(key, 0644 | IPC_CREAT)` and sends several messages of different `mtype` values. A receiver later calls:
+A sender creates a message queue and sends messages with different `mtype` values. A receiver calls:
 
 ```c
 msgrcv(msqid, &buf, sizeof(buf), 2, 0);
 ```
 
-What kind of message is the receiver requesting? Also state two queue fields or effects that are updated when a receive succeeds.
+What kind of message is the receiver requesting? Why is `mtype` important for message queue communication?
 
 ---
 
 # Answer Key and Explanations
 
 ## 1.
-**Answer: B. `/etc`**  
-`/etc` stores system-related configuration files.
+**Answer: B. Shared libraries are loaded once in memory and shared across programs, reducing duplication**  
+Static libraries embed code into each program; shared libraries are loaded once and used by many.
 
 ## 2.
-**Answer: C. `-I`**  
-`-I` adds a nonstandard header-file search path. `-L` is for library paths and `-l` names a library to link.
+**Answer: B. `-I` adds header search paths, `-L` adds library search paths, `-l` names a library to link against**  
+Each flag controls a different part of the compilation/linking pipeline.
 
 ## 3.
-**Answer: C. Variables are referenced with `$`**  
-Shell variables are accessed with `$name`. Variable names cannot start with a number, assignment cannot have spaces around `=`, and shell is case-sensitive.
+**Answer: B. Double quotes allow variable expansion while preserving spaces; single quotes treat everything literally**  
+Double quotes expand `$var`; single quotes print `$var` as-is.
 
 ## 4.
-**Answer: B. Return values are limited to the range 0 to 255**  
-The lecture notes emphasize that shell function `return` values are numeric and constrained to `[0,255]`. Larger values do not behave as normal general-purpose returns.
+**Answer: B. Shell `return` values are limited to the range 0–255**  
+Values above 255 wrap around, producing incorrect results.
 
 ## 5.
-**Answer: C. Library calls commonly use buffering in user space**  
-System calls are more expensive because they involve switching into kernel mode. Library calls can reduce overhead by buffering in user space.
+**Answer: B. System calls require switching between user mode and kernel mode, with full state save/restore**  
+The context switch between modes is the primary overhead.
 
 ## 6.
-**Answer: C. A new file was created and the call failed if it already existed**  
-`O_CREAT | O_EXCL` means create the file, but fail if it already exists.
+**Answer: B. A new file is created; the call fails if the file already exists**  
+`O_CREAT | O_EXCL` ensures exclusive creation.
 
 ## 7.
-**Answer: B. It repositions the file offset of an open file**  
-`lseek()` changes where the next read or write will begin in a seekable file.
+**Answer: B. They perform I/O at a given offset without changing the shared file offset**  
+This avoids race conditions when multiple threads or processes share a descriptor.
 
 ## 8.
-**Answer: C. They perform I/O at a given offset without changing the shared file offset**  
-This is exactly why `pread()` and `pwrite()` are useful when multiple threads share one descriptor.
+**Answer: B. Multiple threads sharing the same descriptor can read different offsets without corrupting each other's position**  
+`pread()`/`pwrite()` don't touch the shared offset, so threads don't interfere.
 
 ## 9.
-**Answer: C. `lstat()`**  
-`lstat()` reports on the symbolic link itself. `stat()` follows the link to the target.
+**Answer: B. `stat()` follows the link to the target; `lstat()` reports on the link itself**  
+Use `lstat()` when you need info about the symbolic link, not its target.
 
 ## 10.
-**Answer: B. The original and duplicate descriptors share file offset and status flags**  
-Both descriptors point to the same open file table entry.
+**Answer: B. They point to the same file table entry, which contains the offset**  
+`dup()` creates a new descriptor pointing to the same underlying file table entry.
 
 ## 11.
-**Answer: D. `/etc/shadow`**  
-`/etc/passwd` stores broader account info, while `/etc/shadow` stores password details and is restricted.
+**Answer: B. `/etc/passwd` is world-readable; storing password hashes separately in root-only `/etc/shadow` limits exposure**  
+Separating credentials into a restricted file improves security.
 
 ## 12.
-**Answer: C. Heap**  
-Dynamic allocation functions such as `malloc()` and `calloc()` allocate from the heap.
+**Answer: B. Holding dynamically allocated memory from `malloc()`, `calloc()`, etc.**  
+The heap is the programmer-managed region for dynamic allocation.
 
 ## 13.
-**Answer: B. The child gets its own separate memory space, though some code/resources may still be shared**  
-The child receives a copy of the parent’s data state, but it executes in its own process space.
+**Answer: B. `fork()` returns 0 to the child and the child's PID to the parent**  
+This return value is how each process knows its role.
 
 ## 14.
-**Answer: C. It is half-duplex and typically used between related processes**  
-Unnamed pipes are traditionally one-way and mainly used between parent/child or other related processes.
+**Answer: B. Pipe descriptors are inherited through `fork()`, so processes without a common ancestor can't access them**  
+Unnamed pipes are anonymous kernel objects only accessible through inheritance.
 
 ## 15.
-**Answer: C. A queue is identified through a key and messages may be selected by type**  
-Message queues use keys and allow selective receipt by message type. A successful receive removes the message from the queue.
+**Answer: B. Message queues allow receivers to select messages by type, not just strict FIFO order**  
+The `mtype` field enables selective, type-based retrieval.
 
 ## 16.
 **Sample answer:**  
-A static library is linked so the program contains its own copy of the needed code, while a shared library keeps references to code that is supplied at runtime. One practical consequence is that static libraries can lead to duplicate copies of the same functions in multiple program files or in memory, whereas shared libraries reduce that duplication.
+A static library is linked so the program carries its own copy of the needed code. A shared library keeps references to code loaded at runtime from a shared copy. This means static linking leads to larger binaries and duplicated code in memory, while shared libraries reduce both.
 
 ## 17.
 **Sample answer:**  
-A global variable in a shell script is visible throughout the script, including inside functions. A local variable is only visible inside the function where it is declared with `local`. This matters because large scripts can accidentally overwrite shared variables if local scope is not used.
+Shell variables are global by default. A variable set inside a function without `local` persists after the function returns, which can accidentally overwrite values used elsewhere in the script. Using `local` restricts the variable to the function, preventing such bugs.
 
 ## 18.
 **Sample answer:**  
-New regular files begin from a base permission such as `0666`. The umask removes permission bits from that base. With base `0666` and umask `0022`, the result is `0666 & ~0022 = 0644`, so the owner gets read/write and group/others get read only.
+New files start from base permission `0666`. The umask removes bits from this base: `0666 & ~0022 = 0644`. So the owner gets read/write (6), and group/others get read-only (4).
 
 ## 19.
 **Sample answer:**  
-A hard link is another directory entry pointing to the same inode, while a symbolic link is a separate file containing a pathname. Hard links generally must stay in the same filesystem and normal users cannot create hard links to directories. Symbolic links can point across filesystems and can point to directories.
+A hard link is another directory entry pointing to the same i-node. A symbolic link is a separate file that stores a pathname string. Hard links must stay in the same filesystem because i-nodes are filesystem-local. Symbolic links can point anywhere because they use pathnames. Also, normal users cannot create hard links to directories.
 
 ## 20.
 **Sample answer:**  
-When a child terminates, the parent receives `SIGCHLD`. The parent can then call `wait()` to collect the child’s termination information and remove the child from the process table. The status value returned through `wait()` can be decoded with `WEXITSTATUS()` to obtain the child’s exit code.
+When a child terminates, the parent receives `SIGCHLD`. The parent calls `wait()` to collect the termination information and remove the child from the process table. `WEXITSTATUS()` extracts the child's actual exit code from the status value returned by `wait()`.
 
 ## 21.
 **Sample answer:**  
-Final file content: **`AZC`**  
-Reason: writing `"ABC"` sets the file contents to `ABC` and leaves the shared file offset at 3. `dup(fd)` creates another descriptor that shares that same open file table entry. `lseek(fd2, 1, SEEK_SET)` changes the shared offset to 1 for both descriptors. Then `write(fd, "Z", 1)` overwrites the second byte.
+Final content: **`AZC`**  
+Both `fd` and `fd2` share the same file table entry (because `dup()` duplicates descriptors, not file table entries). The `lseek` through `fd2` moves the shared offset to 1. The write through `fd` then overwrites the byte at position 1 (the 'B') with 'Z'.
 
 ## 22.
 **Sample answer:**  
-1. Final file size: **13 bytes**  
-2. The hole is the unwritten gap between byte positions 3 and 9.  
-3. `lseek()` moves the file offset forward without writing data into the skipped region, which creates a sparse area before `XYZ` is written.
+1. 13 bytes  
+2. The hole is the unwritten region between byte 3 and byte 9  
+3. `lseek()` moves the offset forward past unwritten space; when the next write happens, the skipped region becomes a sparse gap
 
 ## 23.
 **Sample answer:**  
-The best answer from these notes is usually **FIFO** if the goal is simple one-way communication between unrelated processes using a named file-like object. An unnamed pipe is less appropriate because it is primarily for related processes with a common ancestor. A signal is also less appropriate because it is mainly for notification, not for carrying structured data. A message queue could also work, but FIFO is the more direct match to the lecture-note distinction about unrelated processes.
+**FIFO** is the best choice. An unnamed pipe won't work because the processes are unrelated and don't share a common ancestor for descriptor inheritance. A FIFO has a filesystem name, so both processes can independently open the same path. Signals are less appropriate because they carry no structured data. Message queues could also work, but FIFOs are the most direct match when you just need unrelated processes to exchange a data stream.
 
 ## 24.
 **Sample answer:**  
 Output:
-
 ```text
 hello world
 hello world
 $x
 ```
-
-Explanation:  
-- `echo $x` expands the variable.  
-- `echo "$x"` also expands the variable, but preserves the string as a single quoted unit.  
-- `echo '$x'` uses single quotes, so the variable is not expanded and the literal characters `$x` are printed.
+- Line 1: `$x` is expanded; without quotes, word splitting could occur but doesn't change the visible output here.  
+- Line 2: `"$x"` expands the variable and preserves internal spacing as a single string.  
+- Line 3: `'$x'` prints the literal characters `$x` because single quotes prevent expansion.
 
 ## 25.
 **Sample answer:**  
-The receiver is requesting the **first message whose type is exactly `2`**. When `msgrcv()` succeeds, the queue’s message count (`msg_qnum`) is decremented, the last-receive PID (`msg_lrpid`) is updated, and the last receive time (`msg_rtime`) is set to the current time.
+The receiver is requesting the **first message whose `mtype` equals 2**. `mtype` is critical because it turns the queue from a simple FIFO into a type-based selection system — different receivers can pull different categories of messages from the same queue. When `msgrcv` succeeds, the message is removed from the queue and `msg_qnum` decrements.
 
 ---
 
 ## Suggested Use
 - Attempt the 25 questions without looking at the answer key.
-- Mark which misses came from **definition confusion**, **code-tracing mistakes**, or **API mix-ups**.
+- Mark which misses came from **conceptual confusion**, **code-tracing mistakes**, or **API mix-ups**.
 - Revisit those lecture-note sections before exam day.
