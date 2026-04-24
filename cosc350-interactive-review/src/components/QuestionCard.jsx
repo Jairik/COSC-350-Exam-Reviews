@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
+function formatInline(text) {
+  if (!text) return [text];
+  // Split on **bold**, *italic*, and `code`
+  const parts = text.split(/(\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    } else if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={i}>{part.slice(1, -1)}</em>;
+    } else if (part.startsWith('`') && part.endsWith('`')) {
+      return <code key={i}>{part.slice(1, -1)}</code>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 function formatText(text) {
   if (!text) return null;
-  const parts = text.split(/(```[\s\S]*?```|`.*?`)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith('```')) {
-      const code = part.replace(/```[a-z]*\n?|```/g, '');
+  // First split on fenced code blocks
+  const blocks = text.split(/(```[\s\S]*?```)/g);
+  return blocks.map((block, i) => {
+    if (block.startsWith('```')) {
+      const code = block.replace(/```[a-z]*\n?|```/g, '');
       return (
         <pre key={i}>
           <code>{code}</code>
         </pre>
       );
-    } else if (part.startsWith('`')) {
-      return <code key={i}>{part.replace(/`/g, '')}</code>;
     }
-    return <span key={i}>{part}</span>;
+    // For non-code blocks, process inline markdown
+    return <span key={i}>{formatInline(block)}</span>;
   });
 }
 
