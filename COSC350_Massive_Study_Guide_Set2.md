@@ -18,12 +18,10 @@
 
 ## How This Set Differs
 
-This is a second, separate practice bank based **only** on the lecture notes that start with `LN`.
-
-This set is designed to be:
+This is a second practice bank. It is designed to be:
 - different in wording and structure from the first guide
-- heavier on applied understanding and code behavior
-- broad enough to test all lecture notes again without recycling the same prompts
+- heavier on applied understanding and "why" reasoning
+- broad enough to re-test all topics without recycling the same prompts
 
 Each lecture note includes:
 - **4 multiple-choice questions**
@@ -35,37 +33,31 @@ Each lecture note includes:
 
 ## LN3 - Linux Hierarchical Directory and Libraries
 
-### Focus Areas
-- where programs, headers, and libraries live
-- how `-L` and `-l` work
-- static vs shared libraries
-- creating libraries
-
 ### Multiple Choice
 
-**1.** Which directory is specifically described as storing system configuration files?  
+**1.** Where does Linux keep system-wide configuration files?
 A. `/usr`  
 B. `/etc`  
 C. `/root`  
 D. `/dev`
 
-**2.** Which compiler option adds a **nonstandard library search path**?  
-A. `-I`  
-B. `-l`  
-C. `-L`  
-D. `-c`
+**2.** Why would you use a shared library instead of a static library?
+A. Shared libraries are always faster  
+B. Shared libraries reduce memory and disk duplication by sharing code across programs  
+C. Static libraries cannot be compiled with `gcc`  
+D. Shared libraries are mandatory for all programs
 
-**3.** What is the main disadvantage of static libraries mentioned in the notes?  
-A. They cannot be linked by `gcc`  
-B. They require root privileges to use  
-C. Multiple running programs may keep duplicate copies of the same library code  
-D. They cannot contain object files
+**3.** What happens if multiple programs each link against the same static library?
+A. They share a single copy of the library in memory  
+B. Each program gets its own embedded copy of the library code  
+C. The kernel prevents this  
+D. Only the first program can use it
 
-**4.** Which command step is specifically used to create a shared library from position-independent object code?  
-A. `gcc -shared -o libshared.so shared.o`  
-B. `ar crv libshared.a shared.o`  
-C. `gcc -c -o libshared.so shared.c`  
-D. `ld -r shared.c`
+**4.** What is the correct sequence to create and use a shared library from `shared.c`?
+A. Compile with `-fPIC`, create with `gcc -shared`, link with `-L` and `-l`  
+B. Archive with `ar`, then link directly  
+C. Compile as static first, then convert  
+D. Use `ld -r` to merge object files
 
 ### Short Response
 
@@ -73,22 +65,14 @@ D. `ld -r shared.c`
 
 ### Applied / Programming Prompt
 
-**6.** You have:
-- header file: `shared.h`
-- source file: `shared.c`
-- test file: `example.c`
-
-Write the sequence of commands to:
-1. compile `shared.c` as position-independent code  
-2. create `libshared.so`  
-3. compile and run `example` using the shared library in the current directory
+**6.** Write the sequence of commands to create a shared library from `shared.c` and link `example.c` against it.
 
 ### Answers
 
 **1. B** — `/etc` stores system-related configuration files.  
-**2. C** — `-L` adds a library search path; `-I` is for header files.  
-**3. C** — the notes emphasize duplicated code in memory and in executables.  
-**4. A** — that is the exact shared-library creation step shown in the notes.
+**2. B** — shared libraries are loaded once and shared across programs, reducing duplication.  
+**3. B** — each program embeds its own copy, which is the main drawback of static linking.  
+**4. A** — that is the standard shared library creation workflow.
 
 **5.**
 - `-I` adds an extra directory for header-file lookup.
@@ -107,62 +91,50 @@ gcc -L. example.c -o example -lshared
 
 ## LN5 - Shell Programming
 
-### Focus Areas
-- variables, quoting, and input
-- special shell variables
-- `if`, `case`, loops, `break`, `continue`
-- file and arithmetic tests
-
 ### Multiple Choice
 
-**1.** Which statement about shell assignment is correct?  
-A. `x = 5` is valid  
-B. `5x=hello` is valid  
-C. `x=hello` is valid  
-D. `if=3` is recommended
+**1.** Why does `x = 5` fail as a shell assignment?
+A. Shell does not support numbers  
+B. Shell assignment requires no spaces around `=`  
+C. The variable name is too short  
+D. You must use `let` for all assignments
 
-**2.** What does `$#` represent in a shell script?  
-A. the process ID of the shell  
-B. the number of command-line arguments  
-C. the last argument only  
-D. the current working directory
+**2.** What does `$#` tell you in a shell script?
+A. The PID of the current shell  
+B. The number of command-line arguments passed to the script  
+C. The last argument  
+D. The current directory
 
-**3.** In the notes, which loop continues **while the condition is false**?  
-A. `for`  
-B. `while`  
-C. `case`  
-D. `until`
+**3.** What is the practical difference between `while` and `until`?
+A. They are identical  
+B. `while` loops while true; `until` loops while false  
+C. `until` is faster  
+D. `while` only works with numbers
 
-**4.** In a shell `if` statement, which spacing rule is required?  
-A. no space before `[` and after `]`  
-B. there must be a space before `[` and after `]`  
-C. brackets are optional in every case  
-D. `then` must be on the same line as `fi`
+**4.** Why must there be spaces inside `[ ... ]` in shell conditionals?
+A. It is a style preference  
+B. `[` is actually a command, and the spaces separate it from its arguments  
+C. The shell ignores brackets without spaces  
+D. Spaces enable color output
 
 ### Short Response
 
-**5.** Briefly explain the difference between:
-- `echo $x`
-- `echo "$x"`
-- `echo '$x'`
+**5.** Explain the difference between `echo $x`, `echo "$x"`, and `echo '$x'`.
 
 ### Applied / Programming Prompt
 
-**6.** Write a short shell script that:
-1. asks the user for a filename  
-2. checks whether it exists using a file conditional  
-3. prints one message if it exists and another if it does not
+**6.** Write a shell script that asks for a filename and checks whether it exists.
 
 ### Answers
 
-**1. C** — shell assignment has no spaces around `=` and variable names cannot start with a number.  
-**2. B** — `$#` is the number of arguments passed to the script.  
-**3. D** — `until` continues until its condition becomes true, so it loops while false.  
-**4. B** — spacing around `[` and `]` is required in shell conditionals.
+**1. B** — shell assignment has no spaces: `x=5` is correct.  
+**2. B** — `$#` is the number of arguments.  
+**3. B** — `while` continues on true conditions; `until` continues on false.  
+**4. B** — `[` is a command (an alias for `test`), so arguments need spaces.
 
 **5.**
 - `echo $x` expands the variable, but word splitting may occur.
-- `echo "$x"` expands the variable and preserves internal spaces.
+- `echo "$x"` expands the variable and preserves spaces.
 - `echo '$x'` prints the literal characters `$x`.
 
 **6.**
@@ -182,62 +154,51 @@ fi
 
 ## LN6 - Shell Programming Functions
 
-### Focus Areas
-- defining and calling functions
-- local vs global variables
-- function return limitations
-- `expr`, strings, `printf`, and `export`
-
 ### Multiple Choice
 
-**1.** Which statement about shell functions is correct according to the notes?  
-A. A function may be called before it is defined  
-B. A function must be defined before the function call  
-C. Functions cannot use command-line style arguments  
-D. Functions can only return strings
+**1.** Why must a shell function be defined before it is called?
+A. The shell has no linking phase — it reads scripts top to bottom  
+B. Functions are compiled separately  
+C. The kernel requires this  
+D. It is optional; functions can be called anywhere
 
-**2.** What is true about variables in Bash by default?  
-A. They are local to the function where they are assigned  
-B. They are global unless declared `local`  
-C. They are read-only unless exported  
-D. They are stored only in child processes
+**2.** What happens if you assign a variable inside a function without using `local`?
+A. The variable is destroyed when the function returns  
+B. The variable becomes global and persists after the function  
+C. An error occurs  
+D. The variable is only visible in child processes
 
-**3.** Why does a function that computes an average sometimes produce an incorrect result for large values when using `return`?  
-A. `return` can only return values from 0 to 10  
-B. `return` can only return values from 0 to 255  
-C. shell functions cannot do arithmetic  
-D. `expr` cannot divide integers
+**3.** Why would `return 300` produce unexpected results in a shell function?
+A. Shell cannot handle numbers  
+B. `return` values are limited to 0–255; 300 wraps around  
+C. 300 is too high for the stack  
+D. `return` only accepts strings
 
-**4.** Which command is used to make a variable available to child processes?  
-A. `unset`  
-B. `readonly`  
-C. `export`  
-D. `printf`
+**4.** What does `export` actually do to a variable?
+A. Deletes it from the current shell  
+B. Converts it to an integer  
+C. Makes it available to child processes spawned from the current shell  
+D. Saves it to disk
 
 ### Short Response
 
-**5.** Explain why `local y=5` disappears outside the function but `x=3` still exists afterward in the example from the notes.
+**5.** Explain why `local y=5` disappears outside the function but `x=3` (without local) persists.
 
 ### Applied / Programming Prompt
 
-**6.** Write a shell function named `multiply_two` that:
-- accepts two numbers
-- multiplies them using `expr`
-- returns the result
-Then show how to call it and print the returned value.
+**6.** Write a function `multiply_two` that multiplies two parameters using `expr` and returns the result.
 
 ### Answers
 
-**1. B** — the notes explicitly say the function must be defined before the call.  
+**1. A** — the shell interpreter reads top-to-bottom with no pre-scanning.  
 **2. B** — shell variables are global by default.  
-**3. B** — shell function `return` values are limited to the range 0–255.  
-**4. C** — `export` passes variables to child processes.
+**3. B** — return values are limited to 0–255.  
+**4. C** — export makes the variable part of the environment for child processes.
 
-**5.** `local` limits a variable’s scope to the function body, so `y` is not visible afterward. Since `x` was assigned without `local`, it became a global shell variable and remained available after the function returned.
+**5.** `local` restricts a variable's scope to the function body. Without `local`, the variable becomes global and stays visible throughout the script.
 
 **6.**
 ```sh
-#!/bin/sh
 multiply_two() {
     local rval=$(expr $1 \* $2)
     return $rval
@@ -251,78 +212,61 @@ echo $?
 
 ## LN7 - System Calls Part 1
 
-### Focus Areas
-- what system calls are
-- file descriptors
-- `read`, `write`, `open`, `creat`, `close`
-- unbuffered I/O and system-call overhead
-
 ### Multiple Choice
 
-**1.** Why are system calls considered expensive?  
-A. They always require disk access  
-B. They involve switching between user mode and kernel mode and saving/restoring state  
-C. They can only read one byte at a time  
-D. They cannot be used with files
+**1.** What is the fundamental reason system calls are more expensive than library calls?
+A. System calls always access the disk  
+B. They require switching from user mode to kernel mode, with full context save/restore  
+C. They can only handle one byte at a time  
+D. They are interpreted rather than compiled
 
-**2.** Which file descriptor typically refers to standard output?  
-A. 0  
-B. 1  
-C. 2  
-D. 3
+**2.** How does buffering in library calls like `printf()` improve performance?
+A. It compresses data  
+B. It collects data in user space and issues fewer system calls to the kernel  
+C. It bypasses the kernel entirely  
+D. It encrypts the output
 
-**3.** Which flag opens a file so that writes always go to the end of the file?  
-A. `O_TRUNC`  
-B. `O_CREAT`  
-C. `O_APPEND`  
-D. `O_EXCL`
+**3.** What is a file descriptor?
+A. A filename string  
+B. A small integer the kernel uses to identify an open resource for a process  
+C. A type of shared library  
+D. A hardware register
 
-**4.** Which statement about library calls vs system calls is correct?  
-A. Library calls always run in kernel mode  
-B. System calls use buffered I/O but library calls do not  
-C. Library functions can reduce overhead by buffering in user space  
-D. System calls are implemented on top of library calls
+**4.** Why can `read()` return fewer bytes than you requested?
+A. It always returns exactly the requested amount  
+B. It may encounter end-of-file or the data may not be available yet  
+C. It only reads one byte per call  
+D. The kernel limits reads to 10 bytes
 
 ### Short Response
 
-**5.** Explain what a file descriptor is and why Linux uses file descriptors for files, terminals, pipes, and devices.
+**5.** Explain what a file descriptor is and why the same abstraction is used for files, pipes, and devices.
 
 ### Applied / Programming Prompt
 
-**6.** Write C code that:
-1. opens `input.txt` read-only  
-2. opens `output.txt` write-only, creating it if needed with owner read/write permission  
-3. copies the file using a buffer and `read`/`write`  
-4. closes both descriptors
+**6.** Write C code that opens `input.txt` read-only, opens `output.txt` for writing (create if needed), copies the contents using a buffer, and closes both.
 
 ### Answers
 
-**1. B** — the notes list context switching, argument handling, permission checking, and state restore.  
-**2. B** — 0 is standard input, 1 is standard output, 2 is standard error.  
-**3. C** — `O_APPEND` causes writes to go to the end.  
-**4. C** — library calls run in user space and can buffer to avoid frequent system calls.
+**1. B** — the mode switch and state save/restore is the main overhead.  
+**2. B** — buffering collects data to minimize kernel transitions.  
+**3. B** — a file descriptor is a small integer index into the kernel's open-resource table.  
+**4. B** — partial reads happen at EOF or when data isn't fully available.
 
-**5.** A file descriptor is a small nonnegative integer used by the kernel to refer to an open resource. Linux uses the same abstraction for many resources so programs can read and write them in a uniform way.
+**5.** A file descriptor is a small nonnegative integer the kernel uses to track open resources. Linux uses this uniform abstraction so programs can read/write files, pipes, sockets, and devices with the same `read()`/`write()` interface.
 
 **6.**
 ```c
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <stdlib.h>
-
 #define BUFSIZE 4096
-
 int main(void) {
     int in_fd = open("input.txt", O_RDONLY);
-    int out_fd = open("output.txt", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+    int out_fd = open("output.txt", O_WRONLY | O_CREAT, 0644);
     char buf[BUFSIZE];
     int n;
-
-    while ((n = read(in_fd, buf, BUFSIZE)) > 0) {
+    while ((n = read(in_fd, buf, BUFSIZE)) > 0)
         write(out_fd, buf, n);
-    }
-
     close(in_fd);
     close(out_fd);
     return 0;
@@ -333,56 +277,48 @@ int main(void) {
 
 ## LN8 - System Calls Part 2: lseek, pread/pwrite, umask
 
-### Focus Areas
-- file offsets
-- creating holes in files
-- `pread` / `pwrite`
-- base permissions and umask
-
 ### Multiple Choice
 
-**1.** Which statement about `lseek()` is correct?  
-A. It changes permissions on a file  
-B. It repositions the open-file offset  
-C. It can only move to the start of a file  
-D. It is only valid on sockets
+**1.** What problem does `pread()`/`pwrite()` solve that `lseek()` + `read()`/`write()` does not?
+A. They work on pipes  
+B. They access a specific offset without changing the shared file offset, preventing race conditions in multithreaded code  
+C. They are faster because they bypass permissions  
+D. They automatically lock the file
 
-**2.** What is special about `pread()` and `pwrite()` compared with `lseek()` plus `read()` or `write()`?  
-A. They automatically close the file  
-B. They can only be used on directories  
-C. They perform I/O at a given offset without changing the file’s current offset  
-D. They are slower because they duplicate file contents
+**2.** How are final permissions calculated when creating a file?
+A. The mode you pass to `open()` is used exactly  
+B. The base permission is ANDed with the complement of the umask  
+C. Permissions come from the parent directory only  
+D. The kernel always sets permissions to 0777
 
-**3.** What are the base permissions used when creating a new regular file, before umask is applied?  
-A. `0777`  
-B. `0666`  
-C. `0644`  
-D. `0555`
+**3.** What is a "file hole" and how is it created?
+A. A corrupted region caused by a bad disk sector  
+B. A sparse gap created by seeking past the end of written data and writing again  
+C. An empty file  
+D. A file with no permissions
 
-**4.** If the base permission is `0666` and the umask is `0022`, what resulting permission is shown in the notes?  
-A. `0666`  
-B. `0644`  
-C. `0755`  
-D. `0600`
+**4.** Why can't you use `lseek()` on a pipe?
+A. Pipes don't have an offset — they are sequential streams  
+B. `lseek()` only works on directories  
+C. Pipes use a different file descriptor format  
+D. `lseek()` requires root
 
 ### Short Response
 
-**5.** A program writes 10 bytes, seeks to byte 40, and writes 10 more bytes. What kind of file structure is created, and why is that important?
+**5.** A program writes 10 bytes, seeks to offset 40, and writes 10 more. What kind of file is created, and what is its logical size?
 
 ### Applied / Programming Prompt
 
-**6.** Suppose a file is already open as `fd`. Write two lines of C:
-- one that writes `"HELLO"` beginning at offset 100 using `pwrite`
-- one that reads 5 bytes from offset 100 into `buf` using `pread`
+**6.** Write two lines of C: one that writes `"HELLO"` at offset 100 using `pwrite`, and one that reads 5 bytes from offset 100 using `pread`.
 
 ### Answers
 
-**1. B** — `lseek()` repositions the offset used by future reads and writes.  
-**2. C** — they access a specific offset without altering the shared/current file offset.  
-**3. B** — regular files start from base permission `0666`.  
-**4. B** — `0666 & ~0022 = 0644`.
+**1. B** — `pread`/`pwrite` avoid moving the shared offset, which is critical for threads.  
+**2. B** — final permissions = mode & ~umask.  
+**3. B** — seeking past existing data and writing creates a sparse file.  
+**4. A** — pipes are sequential; seeking has no meaning.
 
-**5.** It creates a file with a **hole** (a sparse region) between the first written block and the later one. This matters because the logical file size grows, but not every byte in the gap came from explicit writes.
+**5.** A file with a "hole" — a sparse region between bytes 10 and 39. The logical size is 50 bytes (10 + gap + 10), even though the gap was never explicitly written.
 
 **6.**
 ```c
@@ -394,67 +330,53 @@ pread(fd, buf, 5, 100);
 
 ## LN9 - Linux File Stats
 
-### Focus Areas
-- i-nodes and directory entries
-- `stat`, `fstat`, `lstat`
-- hard links and symbolic links
-- timestamps and file types
-
 ### Multiple Choice
 
-**1.** Which function should be used when you already have an open file descriptor and want that file’s attributes?  
-A. `stat()`  
-B. `fstat()`  
-C. `lstat()`  
-D. `utime()`
+**1.** What information does an i-node store vs a directory entry?
+A. Both store the same data  
+B. A directory entry stores a filename and i-node number; the i-node stores metadata like type, permissions, timestamps, and link count  
+C. The i-node stores the filename; the directory entry stores permissions  
+D. Neither stores timestamps
 
-**2.** Which function differs by returning information about the symbolic link itself rather than the target file?  
-A. `stat()`  
-B. `link()`  
-C. `lstat()`  
-D. `ctime()`
+**2.** What is the key difference between `stat()` and `lstat()` when the target is a symbolic link?
+A. `stat()` reports on the link itself; `lstat()` follows it  
+B. `lstat()` reports on the symbolic link itself; `stat()` follows it to the target  
+C. They always return identical results  
+D. `lstat()` only works on directories
 
-**3.** When is a file actually deleted according to the notes?  
-A. as soon as `unlink()` is called once  
-B. when its size becomes zero  
-C. when the number of links becomes zero  
-D. when `st_mtime` changes
+**3.** Why can hard links not cross filesystem boundaries while symbolic links can?
+A. Hard links use pathnames; symbolic links use i-nodes  
+B. Hard links point to i-nodes, which are local to a filesystem; symbolic links store a pathname that can point anywhere  
+C. The kernel forbids all cross-filesystem access  
+D. Symbolic links require root
 
-**4.** Which macro checks whether a file is a FIFO?  
-A. `S_ISREG`  
-B. `S_ISDIR`  
-C. `S_ISFIFO`  
-D. `S_ISLNK`
+**4.** What is the difference between `st_mtime` and `st_ctime`?
+A. They are identical  
+B. `st_mtime` records content modification; `st_ctime` records i-node status changes like permissions or link count  
+C. `st_ctime` is creation time  
+D. `st_mtime` tracks access only
 
 ### Short Response
 
-**5.** In one short paragraph, explain the difference between a directory entry and an i-node.
+**5.** Explain the difference between a directory entry and an i-node in one paragraph.
 
 ### Applied / Programming Prompt
 
-**6.** Write a small C code fragment that:
-1. calls `stat()` on a pathname stored in `argv[1]`
-2. prints `"directory"` if it is a directory
-3. prints `"regular"` if it is a regular file
-4. otherwise prints `"other"`
+**6.** Write C that calls `stat()` on `argv[1]` and prints whether it is a directory, regular file, or other.
 
 ### Answers
 
-**1. B** — `fstat()` is the version for an existing descriptor.  
-**2. C** — `lstat()` treats symbolic links specially.  
-**3. C** — the file is deleted once its link count falls to zero.  
-**4. C** — `S_ISFIFO` checks for FIFO file type.
+**1. B** — directory entries map names to i-node numbers; i-nodes hold all metadata.  
+**2. B** — `lstat()` reports on the link itself; `stat()` follows the link.  
+**3. B** — i-nodes are filesystem-local; pathnames are not.  
+**4. B** — `mtime` is data modification; `ctime` is metadata (i-node) status change.
 
-**5.** A directory entry stores a filename and the corresponding i-node number. The i-node stores the file’s metadata such as type, permissions, ownership, timestamps, size, and link count.
+**5.** A directory entry is simply a mapping from a human-readable filename to an i-node number. The i-node itself contains all metadata about the file: type, permissions, ownership, timestamps, size, and link count.
 
 **6.**
 ```c
-#include <sys/stat.h>
-#include <stdio.h>
-
 struct stat sb;
 stat(argv[1], &sb);
-
 if (S_ISDIR(sb.st_mode))
     printf("directory\n");
 else if (S_ISREG(sb.st_mode))
@@ -467,37 +389,31 @@ else
 
 ## LN10 - File Sharing
 
-### Focus Areas
-- descriptor table, file table, v-node table
-- how file offsets are shared
-- `dup()` and `dup2()`
-- redirection and descriptor duplication
-
 ### Multiple Choice
 
-**1.** Which data structure is maintained **per process**?  
-A. v-node table only  
-B. descriptor table  
-C. one global file-offset array with no per-process state  
-D. message queue table
+**1.** Why do two descriptors created by `dup()` affect each other's file position?
+A. They don't — each has an independent offset  
+B. They share the same file table entry, which contains the offset  
+C. The kernel copies the offset on every read  
+D. `dup()` creates a new file
 
-**2.** What does `dup(fd)` guarantee about the new descriptor?  
-A. it is always `fd + 1`  
-B. it is the highest-numbered available descriptor  
-C. it is the lowest-numbered available descriptor  
-D. it always equals 1
+**2.** What is the purpose of the three-level kernel structure (descriptor table, file table, v-node table)?
+A. To make file access slower  
+B. To separate per-process state, per-open-file state, and per-file-on-disk state  
+C. To support only one open file at a time  
+D. To encrypt file data
 
-**3.** If two descriptors refer to the same open file entry after `dup()`, what do they share?  
-A. separate offsets and separate flags  
-B. shared offset and shared status flags  
-C. same filename only  
-D. same process ID only
+**3.** If you call `dup2(fd, 1)`, what happens to future `printf()` output?
+A. It is discarded  
+B. It goes to the file described by `fd` instead of the terminal  
+C. It goes to standard error  
+D. The program crashes
 
-**4.** What does `dup2(oldfd, newfd)` do if `newfd` is already open?  
-A. it fails immediately  
-B. it silently closes `newfd` before reuse  
-C. it closes `oldfd` first  
-D. it creates a third descriptor instead
+**4.** What does `dup2()` do if `newfd` is already open?
+A. It fails with an error  
+B. It silently closes `newfd` first, then duplicates `oldfd` onto it  
+C. It closes `oldfd`  
+D. It opens a new file
 
 ### Short Response
 
@@ -505,150 +421,122 @@ D. it creates a third descriptor instead
 
 ### Applied / Programming Prompt
 
-**6.** A program:
-1. creates a file
-2. writes 8 bytes
-3. calls `dup(fd)` to get `fd2`
-4. calls `lseek(fd2, 20, SEEK_SET)`
-5. writes 4 bytes using `fd`
-
-What file-offset behavior should you expect, and why?
+**6.** A program creates a file, writes 8 bytes, calls `dup(fd)` to get `fd2`, then calls `lseek(fd2, 20, SEEK_SET)` and writes 4 bytes via `fd`. What offset does the write start at, and why?
 
 ### Answers
 
-**1. B** — the descriptor table is per process; the notes explicitly say one descriptor table per process.  
-**2. C** — `dup()` returns the lowest-numbered unused descriptor.  
-**3. B** — they share the same open file entry, which includes offset and flags.  
-**4. B** — `dup2()` silently closes `newfd` if needed before reusing it.
+**1. B** — `dup()` makes both descriptors point to the same file table entry.  
+**2. B** — it cleanly separates the three levels of file state.  
+**3. B** — descriptor 1 is stdout; duplicating `fd` onto it redirects all stdout writes.  
+**4. B** — `dup2()` silently closes `newfd` before reusing it.
 
-**5.** Standard output is file descriptor 1. By duplicating another descriptor onto 1, future writes to standard output go to the new file/resource instead of the terminal.
+**5.** Standard output is descriptor 1. By making descriptor 1 point to a different file, all output that would normally go to the terminal goes to that file instead.
 
-**6.** The descriptors share the same open-file entry, so the `lseek()` done through `fd2` changes the offset seen by `fd` too. The final 4-byte write through `fd` therefore begins at offset 20, not at offset 8.
+**6.** The write starts at offset 20. Since both `fd` and `fd2` share the same file table entry, the `lseek` through `fd2` moves the shared offset to 20, and the subsequent write through `fd` uses that same offset.
 
 ---
 
 ## LN11 - System Data Files
 
-### Focus Areas
-- `/etc/passwd`, `/etc/shadow`, `/etc/group`
-- password and group structures
-- login-account tracking files
-- name/ID lookup functions
-
 ### Multiple Choice
 
-**1.** Which file is described as world-accessible and stores basic user-account information?  
-A. `/etc/shadow`  
-B. `/etc/passwd`  
-C. `/etc/group`  
-D. `/var/log/wtmp`
+**1.** Why is `/etc/passwd` world-readable while `/etc/shadow` is restricted to root?
+A. They contain the same data  
+B. `/etc/passwd` has general account info; `/etc/shadow` has password hashes, so restricting access protects credentials  
+C. `/etc/shadow` is a backup of `/etc/passwd`  
+D. Only root can create user accounts
 
-**2.** Which file is intended to store encrypted password details and password-expiration information?  
-A. `/etc/passwd`  
-B. `/etc/shadow`  
-C. `/etc/hosts`  
-D. `/etc/services`
+**2.** What is the difference between `/var/run/utmp`, `/var/log/wtmp`, and `/var/log/btmp`?
+A. They are three copies of the same data  
+B. `utmp` tracks current sessions, `wtmp` tracks historical logins, `btmp` tracks failed attempts  
+C. `wtmp` is for current users; `utmp` is for history  
+D. `btmp` tracks successful logins only
 
-**3.** Which function is used to obtain password-file information by user ID?  
-A. `getpwnam()`  
-B. `getpwuid()`  
-C. `getgrgid()`  
-D. `gethostbyname()`
+**3.** When would you use `getpwuid()` vs `getpwnam()`?
+A. They are identical  
+B. `getpwuid()` looks up by numeric UID; `getpwnam()` looks up by username string  
+C. `getpwnam()` looks up by UID  
+D. Neither returns useful data
 
-**4.** Which file keeps track of failed login attempts?  
-A. `/var/run/utmp`  
-B. `/var/log/wtmp`  
-C. `/var/log/btmp`  
-D. `/etc/passwd`
+**4.** What kind of information does `/etc/group` store?
+A. User passwords  
+B. Group names, GIDs, and group member lists  
+C. Hardware configuration  
+D. Network routes
 
 ### Short Response
 
-**5.** Why is `/etc/shadow` considered more secure than storing encrypted passwords directly in `/etc/passwd`?
+**5.** Why does `/etc/shadow` exist as a separate file from `/etc/passwd`?
 
 ### Applied / Programming Prompt
 
-**6.** Write the high-level logic, in plain English or pseudocode, for a program that takes a pathname and prints:
-- the owner’s login name
-- the owner’s UID
-- the owner’s login shell
-
-Use the lecture-note functions and structures.
+**6.** Write pseudocode for a program that takes a pathname, calls `stat()` to get the owner's UID, then uses `getpwuid()` to look up and print the owner's login name and shell.
 
 ### Answers
 
-**1. B** — `/etc/passwd` stores basic account details and is world accessible.  
-**2. B** — `/etc/shadow` stores hashed/encrypted password data and expiration details.  
-**3. B** — `getpwuid()` uses a UID to fetch password-record data.  
-**4. C** — `/var/log/btmp` stores failed login attempts.
+**1. B** — password hashes in a world-readable file would be a security risk.  
+**2. B** — each file serves a different tracking purpose.  
+**3. B** — `getpwuid()` uses a number; `getpwnam()` uses a string.  
+**4. B** — group accounts and membership info.
 
-**5.** `/etc/passwd` is readable by everyone, so keeping password hashes there exposes them more broadly. Storing the hashes in `/etc/shadow`, which is restricted to root or limited system access, reduces that exposure.
+**5.** `/etc/passwd` is readable by everyone for general account lookups. Placing password hashes in a root-only file (`/etc/shadow`) limits who can attempt to crack them.
 
 **6.**
-- call `stat()` on the pathname to obtain `st_uid`
+- call `stat()` on the pathname to get `st_uid`
 - call `getpwuid(st_uid)` to retrieve a `struct passwd *`
-- print `pw_name`, `pw_uid`, and `pw_shell`
+- print `pw_name` and `pw_shell`
 
 ---
 
 ## LN12 - Process Environment and Memory Layout
 
-### Focus Areas
-- environment-variable access and modification
-- `environ`, `getenv`, `setenv`, `putenv`, `unsetenv`
-- process memory segments
-- dynamic allocation
-
 ### Multiple Choice
 
-**1.** What is `environ` according to the notes?  
-A. a system call that lists kernel modules  
-B. a global variable containing the address of the array of environment-string pointers  
-C. a directory containing process memory dumps  
-D. a special shell builtin for `PATH`
+**1.** How are environment variables passed to a running program?
+A. The program must read them from a config file  
+B. They are passed as an array of C-string pointers accessible through `environ` or `getenv()`  
+C. The kernel injects them into the heap at runtime  
+D. They are compiled into the binary
 
-**2.** Which function returns a pointer to the value associated with an environment-variable name?  
-A. `setenv()`  
-B. `putenv()`  
-C. `getenv()`  
-D. `unsetenv()`
+**2.** What is the BSS segment for?
+A. Dynamic memory allocation  
+B. Static variables that are declared but not initialized — they are automatically zeroed  
+C. Executable machine instructions  
+D. Function call return addresses
 
-**3.** Which memory segment contains statically allocated variables that are declared but not initialized?  
-A. text  
-B. heap  
-C. stack  
-D. bss
+**3.** Why does `calloc()` exist when `malloc()` already allocates memory?
+A. `calloc()` is just an alias  
+B. `calloc()` allocates AND zero-initializes the memory, which `malloc()` does not  
+C. `calloc()` allocates from the stack  
+D. `calloc()` is for strings only
 
-**4.** Which allocation function initializes the allocated region to all zero bits?  
-A. `malloc()`  
-B. `calloc()`  
-C. `realloc()`  
-D. `free()`
+**4.** What happens if you never call `free()` on memory allocated with `malloc()`?
+A. The kernel automatically reclaims it during execution  
+B. The memory is leaked — it remains allocated until the process terminates  
+C. The program crashes immediately  
+D. The OS swaps it to disk
 
 ### Short Response
 
-**5.** In one paragraph, compare the stack and heap in terms of what kinds of data the lecture notes say they hold.
+**5.** Compare the stack and heap in terms of what they hold and who manages them.
 
 ### Applied / Programming Prompt
 
-**6.** Write a short C example that:
-1. prints the current value of `HOME`
-2. sets an environment variable `TEST11` to `abcd`
-3. prints `TEST11`
+**6.** Write a short C program that prints the current `HOME` variable, sets `TEST11` to `abcd`, and prints it.
 
 ### Answers
 
-**1. B** — the notes describe `environ` as the global address of the environment-list pointer array.  
-**2. C** — `getenv()` retrieves the current value pointer.  
-**3. D** — uninitialized static/global data goes to the bss segment.  
-**4. B** — `calloc()` zero-initializes the space.
+**1. B** — envvars are an array of strings accessible via `environ` and `getenv()`.  
+**2. B** — BSS holds uninitialized statics; the OS zeros them at load time.  
+**3. B** — `calloc()` provides zero-initialized memory as a convenience.  
+**4. B** — un-freed heap memory leaks until the process exits.
 
-**5.** The stack stores temporary data for function calls, including local execution state such as return addresses and temporary variables. The heap is used for dynamic memory allocation via functions like `malloc()`, `calloc()`, and `realloc()`.
+**5.** The stack automatically manages function call frames, local variables, and return addresses. The heap is managed by the programmer through `malloc()`/`free()` for dynamically sized data that persists beyond a single function call.
 
 **6.**
 ```c
 #include <stdio.h>
 #include <stdlib.h>
-
 int main(void) {
     printf("HOME=%s\n", getenv("HOME"));
     setenv("TEST11", "abcd", 1);
@@ -661,248 +549,215 @@ int main(void) {
 
 ## LN13 - Process
 
-### Focus Areas
-- PID and process identity
-- `fork()`
-- race conditions
-- termination and waiting
-- `system()`
-
 ### Multiple Choice
 
-**1.** What does `fork()` return to the child process on success?  
-A. the parent PID  
-B. 1  
-C. 0  
-D. -1
+**1.** What does `fork()` return to the child vs the parent?
+A. Both receive the same value  
+B. The child gets 0; the parent gets the child's PID  
+C. The parent gets 0; the child gets -1  
+D. Both get the child's PID
 
-**2.** Which statement about parent and child after `fork()` is correct?  
-A. they run in exactly the same writable memory space  
-B. they receive separate memory spaces, though some read-only/shared resources may still be shared  
-C. the child replaces the parent immediately  
-D. neither process knows whether it is parent or child
+**2.** Why are race conditions a concern after `fork()`?
+A. The child always runs first  
+B. The execution order between parent and child is unpredictable, so accessing shared state can produce different results each run  
+C. `fork()` doesn't create a real process  
+D. Race conditions only happen with threads, not processes
 
-**3.** What does `wait()` do in the parent process?  
-A. forces the child to restart  
-B. blocks until a child terminates  
-C. creates a child  
-D. ignores exit status permanently
+**3.** What is the role of `wait()` in process management?
+A. It creates a child process  
+B. It blocks the parent until a child terminates and collects its exit status  
+C. It sends a signal to the child  
+D. It pauses the child
 
-**4.** According to the notes, what does `system()` return when the `exec` step fails?  
+**4.** What value does `system()` return if the `exec` step fails?
 A. 0  
 B. -1  
-C. 44  
-D. 127
+C. 127  
+D. 255
 
 ### Short Response
 
-**5.** Define a race condition in your own words using the idea from the lecture notes.
+**5.** Define a race condition in your own words using the fork context.
 
 ### Applied / Programming Prompt
 
-**6.** A process calls `fork()`, and both parent and child run a loop from 1 to 3 printing their PID and loop counter. How many total loop-print lines should appear, and why?
+**6.** A process forks, and both parent and child run a loop printing 1 to 3. How many total lines are printed, and why?
 
 ### Answers
 
-**1. C** — the child gets 0 on success.  
-**2. B** — they have separate memory spaces after the copy, though text/shared resources may still be shared.  
-**3. B** — `wait()` blocks the parent until a child exits.  
-**4. D** — the notes specify 127 if `exec` failed inside `system()`.
+**1. B** — the return value is how they distinguish roles.  
+**2. B** — the OS scheduler decides who runs; shared state access becomes non-deterministic.  
+**3. B** — `wait()` reaps the child and collects its exit status.  
+**4. C** — 127 indicates `exec` failure inside `system()`.
 
-**5.** A race condition occurs when multiple processes or threads access shared data and the final result depends on execution order. The “winner” is whichever update happens last, so the outcome becomes timing-dependent.
+**5.** After `fork()`, both parent and child may try to read or write the same resource. Since we can't predict which runs first, the outcome depends on timing — this is a race condition.
 
-**6.** There should be **6 total loop-print lines**: the parent executes the loop 3 times and the child executes the loop 3 times. After `fork()`, both processes continue independently from that point.
+**6.** Six total lines: the parent prints 3 and the child prints 3. After `fork()`, both processes independently run the full loop.
 
 ---
 
 ## LN14 - IPC: Pipes, popen, FIFOs
 
-### Focus Areas
-- classic pipes
-- parent-child communication
-- `popen` and `pclose`
-- FIFOs and blocking behavior
-
 ### Multiple Choice
 
-**1.** Which limitation of ordinary pipes is emphasized in the notes?  
-A. they only work with files on disk  
-B. they are historically half-duplex and usually require related processes  
-C. they can only carry integers  
-D. they do not use file descriptors
+**1.** Why can't you use an unnamed pipe to communicate between two completely unrelated processes?
+A. Unnamed pipes require an existing file  
+B. Unnamed pipes exist only within the kernel and are inherited through fork — unrelated processes cannot access them  
+C. Unnamed pipes are bidirectional  
+D. The kernel blocks unrelated access
 
-**2.** After a `pipe(filedes)`, which end is open for writing?  
-A. `filedes[0]`  
-B. `filedes[1]`  
-C. both always write  
-D. neither until `exec`
+**2.** What is the key difference between a pipe and a FIFO?
+A. Pipes have names in the filesystem; FIFOs do not  
+B. A FIFO has a name in the filesystem, so unrelated processes can open it; pipes are anonymous  
+C. FIFOs are bidirectional; pipes are not  
+D. Pipes support message types
 
-**3.** In `popen(cmd, "r")`, the returned file pointer is connected to what?  
-A. the command’s standard input  
-B. the command’s standard error only  
-C. the command’s standard output  
-D. a FIFO on disk
+**3.** In `popen(cmd, "r")`, what is the calling process reading?
+A. The command's standard error  
+B. The command's standard output  
+C. A file named `cmd`  
+D. The command's source code
 
-**4.** What happens if a FIFO is opened with `O_WRONLY | O_NONBLOCK` and no process currently has it open for reading?  
-A. it blocks forever  
-B. it succeeds immediately and discards data  
-C. it returns `-1` with `errno` set to `ENXIO`  
-D. it becomes a full-duplex pipe
+**4.** What happens when you try to open a FIFO for writing with `O_NONBLOCK` and no reader exists?
+A. It blocks until a reader appears  
+B. It succeeds and discards data  
+C. It fails immediately with `ENXIO`  
+D. It creates a reader automatically
 
 ### Short Response
 
-**5.** Why are FIFOs useful when two processes do not share a common ancestor?
+**5.** Why are FIFOs useful when two processes don't share a common ancestor?
 
 ### Applied / Programming Prompt
 
-**6.** A parent creates a pipe, forks, and wants to send data **to the child only**. Which ends should the parent and child close, and which end should each process use?
+**6.** In a parent-child pipe scenario where data flows from parent to child, which ends should each close, and which should each use?
 
 ### Answers
 
-**1. B** — the notes stress half-duplex behavior and use between related processes.  
-**2. B** — `filedes[1]` is the write end.  
-**3. C** — mode `"r"` lets the caller read what the command writes to standard output.  
-**4. C** — nonblocking write-open on a FIFO fails with `ENXIO` if there is no reader.
+**1. B** — pipe descriptors are only accessible to the creating process and its descendants.  
+**2. B** — FIFOs are named; pipes are anonymous.  
+**3. B** — `"r"` mode reads the command's stdout.  
+**4. C** — nonblocking write-open with no reader returns ENXIO.
 
-**5.** Ordinary pipes are mainly for related processes created by `fork()`. FIFOs are named filesystem objects, so unrelated processes can independently open the same FIFO path and communicate.
+**5.** Unrelated processes can't inherit pipe descriptors. FIFOs have filesystem names, so any process can open the same path to communicate.
 
 **6.**
-- Parent closes `fd[0]` and writes using `fd[1]`
-- Child closes `fd[1]` and reads using `fd[0]`
+- Parent closes `fd[0]` (read end) and writes via `fd[1]`
+- Child closes `fd[1]` (write end) and reads via `fd[0]`
 
 ---
 
 ## LN15 - IPC: Signals
 
-### Focus Areas
-- signal meaning and default actions
-- `signal()`, `kill()`, `raise()`
-- `alarm()` and `pause()`
-- catchable vs uncatchable signals
-
 ### Multiple Choice
 
-**1.** Which signal is generated when a user presses Control-C?  
-A. `SIGALRM`  
-B. `SIGINT`  
-C. `SIGSTOP`  
-D. `SIGCONT`
+**1.** What are the three things a process can do when it receives a signal?
+A. Read it, parse it, or store it  
+B. Ignore it, catch it with a custom handler, or let the default action happen  
+C. Forward it, duplicate it, or delete it  
+D. Log it, queue it, or return it
 
-**2.** Which pair of signals is explicitly described as not catchable or ignorable?  
-A. `SIGUSR1` and `SIGUSR2`  
-B. `SIGINT` and `SIGQUIT`  
-C. `SIGKILL` and `SIGSTOP`  
-D. `SIGALRM` and `SIGPIPE`
+**2.** Why can't a process catch or ignore `SIGKILL`?
+A. `SIGKILL` doesn't exist  
+B. The OS must always be able to forcefully terminate any process, so `SIGKILL` is uncatchable by design  
+C. `SIGKILL` is the same as `SIGINT`  
+D. Only root processes receive `SIGKILL`
 
-**3.** What does `alarm(5)` schedule?  
-A. a process fork in 5 seconds  
-B. delivery of `SIGALRM` to the process in 5 seconds  
-C. a pipe close in 5 seconds  
-D. an automatic `waitpid()`
+**3.** What is the difference between `kill()` and `raise()`?
+A. They are identical  
+B. `kill()` sends a signal to another process; `raise()` sends a signal to the calling process  
+C. `raise()` creates a new process  
+D. `kill()` always terminates the target
 
-**4.** What does `pause()` do?  
-A. sends `SIGSTOP`  
-B. sleeps until a signal is caught  
-C. blocks all signals permanently  
-D. resets the signal table
+**4.** How do `alarm()` and `pause()` work together?
+A. `alarm()` pauses the process; `pause()` sets a timer  
+B. `alarm()` schedules a `SIGALRM`; `pause()` suspends the process until a signal arrives  
+C. Both are deprecated  
+D. `pause()` cancels the alarm
 
 ### Short Response
 
-**5.** Describe the three broad ways a process may deal with a signal when it occurs.
+**5.** Describe the three broad ways a process may deal with a signal.
 
 ### Applied / Programming Prompt
 
-**6.** A parent forks a child. Three seconds later the child calls `kill(getppid(), SIGALRM)`. The parent has installed a handler for `SIGALRM` and then calls `pause()`. Explain, step by step, what happens.
+**6.** A parent forks a child. Three seconds later the child sends `SIGALRM` to the parent. The parent has installed a handler and called `pause()`. Describe step by step what happens.
 
 ### Answers
 
-**1. B** — Control-C sends `SIGINT`.  
-**2. C** — the notes explicitly say `SIGKILL` and `SIGSTOP` cannot be caught or ignored.  
-**3. B** — `alarm()` schedules `SIGALRM`.  
-**4. B** — it suspends execution until a signal is caught.
+**1. B** — ignore, catch/handle, or default.  
+**2. B** — the kernel guarantees it can always kill a process.  
+**3. B** — `kill()` targets others; `raise()` targets self.  
+**4. B** — `alarm()` sets the timer; `pause()` waits for any signal.
 
-**5.** A process may ignore the signal, catch and handle it with a handler function, or allow the signal’s default action to happen such as termination, stopping, or core dump behavior.
+**5.** When a signal arrives, the process can: (1) ignore it entirely, (2) run a custom handler function, or (3) take the signal's default action (which may be terminate, stop, or core dump).
 
 **6.**
-- parent forks child
-- parent installs a `SIGALRM` handler and waits in `pause()`
-- child sleeps for 3 seconds
-- child sends `SIGALRM` to the parent using the parent PID
-- the parent receives the signal, wakes from `pause()`, runs the handler, and then continues execution
+- Parent forks child
+- Parent installs a `SIGALRM` handler and calls `pause()` (blocking)
+- Child sleeps 3 seconds, then sends `SIGALRM` to parent via `kill(getppid(), SIGALRM)`
+- Parent wakes from `pause()`, runs the handler, then continues
 
 ---
 
 ## LN16 - IPC: Message Queues
 
-### Focus Areas
-- XSI IPC basics
-- `ftok`, `msgget`, `msgsnd`, `msgrcv`, `msgctl`
-- queue metadata
-- message types and selection
-
 ### Multiple Choice
 
-**1.** Which statement best matches the lecture-note description of a message queue?  
-A. it is a user-space linked list stored entirely inside the sender process  
-B. it is a linked list of messages stored within the kernel and identified by a queue ID  
-C. it is always shared with no key required  
-D. it is the same thing as a pipe descriptor
+**1.** How do message queues differ from pipes in what they can deliver?
+A. Pipes allow type-based selection; queues do not  
+B. Message queues allow receiving by message type, not just FIFO order; pipes are strictly sequential  
+C. Pipes store messages permanently  
+D. Message queues are user-space only
 
-**2.** What must exist for `ftok(path, id)` to generate a key?  
-A. the path must name an existing file  
-B. the path must be a directory only  
-C. the file must be executable  
-D. the path can be completely nonexistent
+**2.** Why must a message struct start with a `long mtype` field?
+A. It stores the sender's PID  
+B. The kernel uses `mtype` to enable type-based message selection by receivers  
+C. It is the message size  
+D. It is optional and has no effect
 
-**3.** In `msgrcv()`, what does `msgtyp == 0` mean?  
-A. receive only message type 0  
-B. receive the first message on the queue  
-C. receive the newest message only  
-D. receive no data, just metadata
+**3.** What is the trade-off of using message queues for IPC?
+A. They are faster than shared memory but less reliable  
+B. They serialize communication (reducing races) but each operation requires a system call, adding overhead  
+C. They have no trade-offs  
+D. They can only pass integers
 
-**4.** Which `msgctl()` command removes the queue from the kernel?  
-A. `IPC_SET`  
-B. `IPC_STAT`  
-C. `IPC_RMID`  
-D. `IPC_CREAT`
+**4.** What does `IPC_RMID` do?
+A. Pauses the queue  
+B. Removes the queue from the kernel entirely  
+C. Reads the next message  
+D. Changes the queue permissions
 
 ### Short Response
 
-**5.** Why do message queues help reduce race-condition issues, yet still have a performance cost?
+**5.** Why do message queues help reduce race conditions compared to shared memory?
 
 ### Applied / Programming Prompt
 
-**6.** Outline the full sender/receiver workflow for a simple message-queue program pair using the lecture-note APIs. Your answer should mention:
-- key creation
-- queue creation/opening
-- sending
-- receiving
-- cleanup
+**6.** Outline the full sender/receiver workflow for a message queue program pair.
 
 ### Answers
 
-**1. B** — the notes define a message queue as a kernel-stored linked list of messages.  
-**2. A** — `ftok()` uses the pathname of an existing file.  
-**3. B** — `msgtyp == 0` receives the first message in the queue.  
-**4. C** — `IPC_RMID` removes the queue.
+**1. B** — `msgrcv()` can select by type; pipes are FIFO only.  
+**2. B** — `mtype` enables type-based filtering by receivers.  
+**3. B** — reduced races but increased overhead from kernel calls.  
+**4. B** — `IPC_RMID` destroys the queue.
 
-**5.** Message queues serialize communication through kernel-managed queue operations, which reduces direct shared-memory races over the message data itself. However, each send and receive requires a system call into the kernel, so there is overhead.
+**5.** Message queues serialize communication — each send/receive goes through the kernel, which prevents the simultaneous uncoordinated access that causes race conditions in shared memory.
 
 **6.**
-- sender and receiver both call `ftok()` with the same path and ID to generate the same key
-- sender creates or opens the queue with `msgget(key, 0644 | IPC_CREAT)`
-- receiver opens the same queue with `msgget(key, 0644)`
-- sender fills a message struct whose first field is `long mtype`, then calls `msgsnd()`
-- receiver calls `msgrcv()` to fetch a message, optionally by type
-- when done, cleanup is performed with `msgctl(msqid, IPC_RMID, NULL)`
+- Both sender and receiver call `ftok()` with the same path and ID
+- Sender creates the queue with `msgget(key, 0644 | IPC_CREAT)`
+- Receiver opens it with `msgget(key, 0644)`
+- Sender fills a struct (starting with `long mtype`) and calls `msgsnd()`
+- Receiver calls `msgrcv()` to fetch a message, optionally by type
+- Cleanup: `msgctl(msqid, IPC_RMID, NULL)`
 
 ---
 
 ## Final Use Suggestion
 
-A strong exam routine with both guides would be:
-
-1. do the first guide for broad recall  
-2. do this second guide closed-book for transfer and application  
-3. rewrite any missed applied questions by hand  
-4. revisit file descriptors, `fork`, `wait`, `dup2`, `lseek`, `umask`, pipes, signals, and message queues last
+1. Do the first guide for broad recall  
+2. Do this second guide closed-book for applied understanding  
+3. Rewrite any missed applied questions by hand  
+4. Focus especially on `fork`, `wait`, `dup2`, `lseek`, `umask`, pipes, signals, and message queues

@@ -1,0 +1,2641 @@
+[
+  {
+    "title": "LN3 - Linux Hierarchical Directory and Libraries",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What is the main practical difference between static and shared libraries?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Static libraries run faster because they bypass the kernel"
+          },
+          {
+            "letter": "B",
+            "text": "Shared libraries eliminate code duplication across programs; static libraries embed a copy in each program"
+          },
+          {
+            "letter": "C",
+            "text": "Static libraries can only be used by root"
+          },
+          {
+            "letter": "D",
+            "text": "Shared libraries cannot be linked with `gcc`"
+          }
+        ],
+        "answer": "B",
+        "explanation": "shared libraries are loaded once in memory and shared by many programs; static libraries are copied into each binary.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What do the `-I`, `-L`, and `-l` flags control during compilation?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`-I` sets library paths, `-L` sets header paths, `-l` sets output name"
+          },
+          {
+            "letter": "B",
+            "text": "`-I` sets header search paths, `-L` sets library search paths, `-l` names a library to link"
+          },
+          {
+            "letter": "C",
+            "text": "All three are interchangeable aliases for include paths"
+          },
+          {
+            "letter": "D",
+            "text": "`-I` enables debugging, `-L` sets log level, `-l` enables linking"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`-I` is for headers, `-L` is for library directories, `-l` names the library.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "A library file named `libmath.a` would be classified as what kind of library?\nYou have source `program.c` and a static library `libfoo.a` in the current directory. Write the `gcc` command to compile and link the program using the `-l` shorthand form.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Shared"
+          },
+          {
+            "letter": "B",
+            "text": "Dynamic"
+          },
+          {
+            "letter": "C",
+            "text": "Static"
+          },
+          {
+            "letter": "D",
+            "text": "Kernel-space"
+          }
+        ],
+        "answer": "C",
+        "explanation": "`.a` suffix indicates a static archive library.\n```bash\ngcc -o program program.c -L. -lfoo\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Where does Linux keep system-wide configuration files?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`/usr`"
+          },
+          {
+            "letter": "B",
+            "text": "`/etc`"
+          },
+          {
+            "letter": "C",
+            "text": "`/root`"
+          },
+          {
+            "letter": "D",
+            "text": "`/dev`"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`/etc` stores system-related configuration files.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Why would you use a shared library instead of a static library?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Shared libraries are always faster"
+          },
+          {
+            "letter": "B",
+            "text": "Shared libraries reduce memory and disk duplication by sharing code across programs"
+          },
+          {
+            "letter": "C",
+            "text": "Static libraries cannot be compiled with `gcc`"
+          },
+          {
+            "letter": "D",
+            "text": "Shared libraries are mandatory for all programs"
+          }
+        ],
+        "answer": "B",
+        "explanation": "shared libraries are loaded once and shared across programs, reducing duplication.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What happens if multiple programs each link against the same static library?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They share a single copy of the library in memory"
+          },
+          {
+            "letter": "B",
+            "text": "Each program gets its own embedded copy of the library code"
+          },
+          {
+            "letter": "C",
+            "text": "The kernel prevents this"
+          },
+          {
+            "letter": "D",
+            "text": "Only the first program can use it"
+          }
+        ],
+        "answer": "B",
+        "explanation": "each program embeds its own copy, which is the main drawback of static linking.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What is the correct sequence to create and use a shared library from `shared.c`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Compile with `-fPIC`, create with `gcc -shared`, link with `-L` and `-l`"
+          },
+          {
+            "letter": "B",
+            "text": "Archive with `ar`, then link directly"
+          },
+          {
+            "letter": "C",
+            "text": "Compile as static first, then convert"
+          },
+          {
+            "letter": "D",
+            "text": "Use `ld -r` to merge object files"
+          }
+        ],
+        "answer": "A",
+        "explanation": "that is the standard shared library creation workflow.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Explain the difference between `-I`, `-L`, and `-l` in one or two sentences each.",
+        "answer": "",
+        "explanation": "",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write the sequence of commands to create a shared library from `shared.c` and link `example.c` against it.",
+        "answer": "",
+        "explanation": "\n```bash\ngcc -c -fPIC shared.c\ngcc -shared -o libshared.so shared.o\ngcc -L. example.c -o example -lshared\n./example\n```",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN5 - Shell Programming",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What is the key difference between single quotes and double quotes in shell?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Single quotes allow variable expansion; double quotes do not"
+          },
+          {
+            "letter": "B",
+            "text": "Double quotes allow variable expansion; single quotes treat everything literally"
+          },
+          {
+            "letter": "C",
+            "text": "Both behave identically"
+          },
+          {
+            "letter": "D",
+            "text": "Single quotes are only for filenames"
+          }
+        ],
+        "answer": "B",
+        "explanation": "double quotes expand variables but preserve spacing; single quotes are fully literal.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What does the special variable `$?` represent?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The current PID"
+          },
+          {
+            "letter": "B",
+            "text": "The number of arguments"
+          },
+          {
+            "letter": "C",
+            "text": "The exit status of the last command"
+          },
+          {
+            "letter": "D",
+            "text": "The script filename"
+          }
+        ],
+        "answer": "C",
+        "explanation": "`$?` holds the exit status of the most recent command.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "How does an `until` loop differ from a `while` loop?\nWrite a short shell script that asks for a filename and prints whether it exists.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`until` loops are faster"
+          },
+          {
+            "letter": "B",
+            "text": "`while` keeps running while the condition is true; `until` keeps running while it is false"
+          },
+          {
+            "letter": "C",
+            "text": "`until` can only iterate once"
+          },
+          {
+            "letter": "D",
+            "text": "They are exactly the same"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`while` loops on true; `until` loops on false.\n```sh\necho \"Enter filename:\"\nread fname\nif [ -e \"$fname\" ]; then\necho \"$fname exists\"\nelse\necho \"$fname does not exist\"\nfi\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why does `x = 5` fail as a shell assignment?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Shell does not support numbers"
+          },
+          {
+            "letter": "B",
+            "text": "Shell assignment requires no spaces around `=`"
+          },
+          {
+            "letter": "C",
+            "text": "The variable name is too short"
+          },
+          {
+            "letter": "D",
+            "text": "You must use `let` for all assignments"
+          }
+        ],
+        "answer": "B",
+        "explanation": "shell assignment has no spaces: `x=5` is correct.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What does `$#` tell you in a shell script?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The PID of the current shell"
+          },
+          {
+            "letter": "B",
+            "text": "The number of command-line arguments passed to the script"
+          },
+          {
+            "letter": "C",
+            "text": "The last argument"
+          },
+          {
+            "letter": "D",
+            "text": "The current directory"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`$#` is the number of arguments.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is the practical difference between `while` and `until`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They are identical"
+          },
+          {
+            "letter": "B",
+            "text": "`while` loops while true; `until` loops while false"
+          },
+          {
+            "letter": "C",
+            "text": "`until` is faster"
+          },
+          {
+            "letter": "D",
+            "text": "`while` only works with numbers"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`while` continues on true conditions; `until` continues on false.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "Why must there be spaces inside `[ ... ]` in shell conditionals?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It is a style preference"
+          },
+          {
+            "letter": "B",
+            "text": "`[` is actually a command, and the spaces separate it from its arguments"
+          },
+          {
+            "letter": "C",
+            "text": "The shell ignores brackets without spaces"
+          },
+          {
+            "letter": "D",
+            "text": "Spaces enable color output"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`[` is a command (an alias for `test`), so arguments need spaces.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Explain the difference between `echo $x`, `echo \"$x\"`, and `echo '$x'`.",
+        "answer": "",
+        "explanation": "",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write a shell script that asks for a filename and checks whether it exists.",
+        "answer": "",
+        "explanation": "\n```sh\n#!/bin/sh\necho -n \"Enter filename: \"\nread fname\nif [ -e \"$fname\" ]; then\necho \"The file $fname exists.\"\nelse\necho \"The file $fname does not exist.\"\nfi\n```",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN6 - Shell Programming Functions",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why can a shell function's `return` statement produce wrong results for large numbers?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Shell functions cannot do math"
+          },
+          {
+            "letter": "B",
+            "text": "`return` is limited to the range 0–255"
+          },
+          {
+            "letter": "C",
+            "text": "`return` only works with strings"
+          },
+          {
+            "letter": "D",
+            "text": "The shell truncates to 8 characters"
+          }
+        ],
+        "answer": "B",
+        "explanation": "shell `return` values are constrained to 0–255.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is the default scope of a shell variable?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Local to the function"
+          },
+          {
+            "letter": "B",
+            "text": "Global — visible everywhere in the script"
+          },
+          {
+            "letter": "C",
+            "text": "Only visible in child processes"
+          },
+          {
+            "letter": "D",
+            "text": "Read-only"
+          }
+        ],
+        "answer": "B",
+        "explanation": "shell variables are global unless declared `local`.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What does `export` do to a shell variable?\nWrite a shell function `add_two()` that takes two parameters, uses `expr` to add them, returns the result, then show the command that prints the returned value.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Deletes it"
+          },
+          {
+            "letter": "B",
+            "text": "Makes it read-only"
+          },
+          {
+            "letter": "C",
+            "text": "Makes it available to child processes"
+          },
+          {
+            "letter": "D",
+            "text": "Converts it to an integer"
+          }
+        ],
+        "answer": "C",
+        "explanation": "`export` passes variables to child processes.\n```sh\nadd_two(){\nlocal rval=$(expr $1 + $2)\nreturn $rval\n}\nadd_two 2 3\necho $?\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why must a shell function be defined before it is called?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The shell has no linking phase — it reads scripts top to bottom"
+          },
+          {
+            "letter": "B",
+            "text": "Functions are compiled separately"
+          },
+          {
+            "letter": "C",
+            "text": "The kernel requires this"
+          },
+          {
+            "letter": "D",
+            "text": "It is optional; functions can be called anywhere"
+          }
+        ],
+        "answer": "A",
+        "explanation": "the shell interpreter reads top-to-bottom with no pre-scanning.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What happens if you assign a variable inside a function without using `local`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The variable is destroyed when the function returns"
+          },
+          {
+            "letter": "B",
+            "text": "The variable becomes global and persists after the function"
+          },
+          {
+            "letter": "C",
+            "text": "An error occurs"
+          },
+          {
+            "letter": "D",
+            "text": "The variable is only visible in child processes"
+          }
+        ],
+        "answer": "B",
+        "explanation": "shell variables are global by default.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "Why would `return 300` produce unexpected results in a shell function?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Shell cannot handle numbers"
+          },
+          {
+            "letter": "B",
+            "text": "`return` values are limited to 0–255; 300 wraps around"
+          },
+          {
+            "letter": "C",
+            "text": "300 is too high for the stack"
+          },
+          {
+            "letter": "D",
+            "text": "`return` only accepts strings"
+          }
+        ],
+        "answer": "B",
+        "explanation": "return values are limited to 0–255.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What does `export` actually do to a variable?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Deletes it from the current shell"
+          },
+          {
+            "letter": "B",
+            "text": "Converts it to an integer"
+          },
+          {
+            "letter": "C",
+            "text": "Makes it available to child processes spawned from the current shell"
+          },
+          {
+            "letter": "D",
+            "text": "Saves it to disk"
+          }
+        ],
+        "answer": "C",
+        "explanation": "export makes the variable part of the environment for child processes.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Explain why `local y=5` disappears outside the function but `x=3` (without local) persists.",
+        "answer": "",
+        "explanation": "`local` restricts a variable's scope to the function body. Without `local`, the variable becomes global and stays visible throughout the script.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write a function `multiply_two` that multiplies two parameters using `expr` and returns the result.",
+        "answer": "",
+        "explanation": "\n```sh\nmultiply_two() {\nlocal rval=$(expr $1 \\* $2)\nreturn $rval\n}\nmultiply_two 4 6\necho $?\n```",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN7 - System Calls Part 1",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why are system calls considered more expensive than library calls?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They require disk access every time"
+          },
+          {
+            "letter": "B",
+            "text": "They involve mode switching between user space and kernel space"
+          },
+          {
+            "letter": "C",
+            "text": "They can only read one byte at a time"
+          },
+          {
+            "letter": "D",
+            "text": "They are written in assembly"
+          }
+        ],
+        "answer": "B",
+        "explanation": "system calls require context switching between user and kernel mode, which is costly.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Why do library calls such as `printf()` use buffering?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "To add encryption"
+          },
+          {
+            "letter": "B",
+            "text": "To reduce the number of expensive kernel transitions"
+          },
+          {
+            "letter": "C",
+            "text": "Because the kernel does not support writing"
+          },
+          {
+            "letter": "D",
+            "text": "To enforce file permissions"
+          }
+        ],
+        "answer": "B",
+        "explanation": "buffering collects data in user space to minimize the number of system calls needed.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "When a process opens a new file, how does the kernel choose the file descriptor number?\nWrite the `open()` call that opens `datafile.dat` for read/write, creates it if needed, and fails if it already exists. Give owner read and write permission only.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It randomly assigns one"
+          },
+          {
+            "letter": "B",
+            "text": "It always uses descriptor 3"
+          },
+          {
+            "letter": "C",
+            "text": "It uses the lowest unused descriptor number"
+          },
+          {
+            "letter": "D",
+            "text": "The programmer must specify it manually"
+          }
+        ],
+        "answer": "C",
+        "explanation": "the kernel assigns the lowest available descriptor number.\n```c\nopen(\"datafile.dat\", O_RDWR | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What is the fundamental reason system calls are more expensive than library calls?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "System calls always access the disk"
+          },
+          {
+            "letter": "B",
+            "text": "They require switching from user mode to kernel mode, with full context save/restore"
+          },
+          {
+            "letter": "C",
+            "text": "They can only handle one byte at a time"
+          },
+          {
+            "letter": "D",
+            "text": "They are interpreted rather than compiled"
+          }
+        ],
+        "answer": "B",
+        "explanation": "the mode switch and state save/restore is the main overhead.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "How does buffering in library calls like `printf()` improve performance?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It compresses data"
+          },
+          {
+            "letter": "B",
+            "text": "It collects data in user space and issues fewer system calls to the kernel"
+          },
+          {
+            "letter": "C",
+            "text": "It bypasses the kernel entirely"
+          },
+          {
+            "letter": "D",
+            "text": "It encrypts the output"
+          }
+        ],
+        "answer": "B",
+        "explanation": "buffering collects data to minimize kernel transitions.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is a file descriptor?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "A filename string"
+          },
+          {
+            "letter": "B",
+            "text": "A small integer the kernel uses to identify an open resource for a process"
+          },
+          {
+            "letter": "C",
+            "text": "A type of shared library"
+          },
+          {
+            "letter": "D",
+            "text": "A hardware register"
+          }
+        ],
+        "answer": "B",
+        "explanation": "a file descriptor is a small integer index into the kernel's open-resource table.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "Why can `read()` return fewer bytes than you requested?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It always returns exactly the requested amount"
+          },
+          {
+            "letter": "B",
+            "text": "It may encounter end-of-file or the data may not be available yet"
+          },
+          {
+            "letter": "C",
+            "text": "It only reads one byte per call"
+          },
+          {
+            "letter": "D",
+            "text": "The kernel limits reads to 10 bytes"
+          }
+        ],
+        "answer": "B",
+        "explanation": "partial reads happen at EOF or when data isn't fully available.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Explain what a file descriptor is and why the same abstraction is used for files, pipes, and devices.",
+        "answer": "",
+        "explanation": "A file descriptor is a small nonnegative integer the kernel uses to track open resources. Linux uses this uniform abstraction so programs can read/write files, pipes, sockets, and devices with the same `read()`/`write()` interface.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write C code that opens `input.txt` read-only, opens `output.txt` for writing (create if needed), copies the contents using a buffer, and closes both.",
+        "answer": "",
+        "explanation": "\n```c\n#include <unistd.h>\n#include <fcntl.h>\n#define BUFSIZE 4096\nint main(void) {\nint in_fd = open(\"input.txt\", O_RDONLY);\nint out_fd = open(\"output.txt\", O_WRONLY | O_CREAT, 0644);\nchar buf[BUFSIZE];\nint n;\nwhile ((n = read(in_fd, buf, BUFSIZE)) > 0)\nwrite(out_fd, buf, n);\nclose(in_fd);\nclose(out_fd);\nreturn 0;\n}\n```",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN8 - System Calls Part 2: lseek(), pread()/pwrite(), umask()",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What is the key advantage of `pread()` / `pwrite()` over `lseek()` + `read()` / `write()`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They are faster because they skip permission checks"
+          },
+          {
+            "letter": "B",
+            "text": "They perform I/O at a given offset without changing the shared file offset"
+          },
+          {
+            "letter": "C",
+            "text": "They work on pipes"
+          },
+          {
+            "letter": "D",
+            "text": "They automatically close the file when done"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`pread()`/`pwrite()` access a given offset without disturbing the current offset, avoiding race conditions in multithreaded code.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "How does `umask` affect the permissions of a newly created file?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It adds extra permissions on top of the base"
+          },
+          {
+            "letter": "B",
+            "text": "It removes permission bits from the base permission set"
+          },
+          {
+            "letter": "C",
+            "text": "It has no effect on files, only directories"
+          },
+          {
+            "letter": "D",
+            "text": "It sets the exact permissions regardless of the base"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`umask` removes bits: `0666 & ~0022 = 0644`.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What happens when you use `lseek()` to jump past the end of a file and then write?\nA file is open as `fd`. Write the `lseek()` call to move the offset to byte 40 from the beginning.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "An error is returned"
+          },
+          {
+            "letter": "B",
+            "text": "The file is truncated"
+          },
+          {
+            "letter": "C",
+            "text": "A file \"hole\" (sparse region) is created"
+          },
+          {
+            "letter": "D",
+            "text": "The extra bytes are filled with the character 'X'"
+          }
+        ],
+        "answer": "C",
+        "explanation": "seeking past the end and writing creates a sparse gap called a file hole.\n```c\nlseek(fd, 40, SEEK_SET);\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What problem does `pread()`/`pwrite()` solve that `lseek()` + `read()`/`write()` does not?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They work on pipes"
+          },
+          {
+            "letter": "B",
+            "text": "They access a specific offset without changing the shared file offset, preventing race conditions in multithreaded code"
+          },
+          {
+            "letter": "C",
+            "text": "They are faster because they bypass permissions"
+          },
+          {
+            "letter": "D",
+            "text": "They automatically lock the file"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`pread`/`pwrite` avoid moving the shared offset, which is critical for threads.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "How are final permissions calculated when creating a file?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The mode you pass to `open()` is used exactly"
+          },
+          {
+            "letter": "B",
+            "text": "The base permission is ANDed with the complement of the umask"
+          },
+          {
+            "letter": "C",
+            "text": "Permissions come from the parent directory only"
+          },
+          {
+            "letter": "D",
+            "text": "The kernel always sets permissions to 0777"
+          }
+        ],
+        "answer": "B",
+        "explanation": "final permissions = mode & ~umask.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is a \"file hole\" and how is it created?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "A corrupted region caused by a bad disk sector"
+          },
+          {
+            "letter": "B",
+            "text": "A sparse gap created by seeking past the end of written data and writing again"
+          },
+          {
+            "letter": "C",
+            "text": "An empty file"
+          },
+          {
+            "letter": "D",
+            "text": "A file with no permissions"
+          }
+        ],
+        "answer": "B",
+        "explanation": "seeking past existing data and writing creates a sparse file.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "Why can't you use `lseek()` on a pipe?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Pipes don't have an offset — they are sequential streams"
+          },
+          {
+            "letter": "B",
+            "text": "`lseek()` only works on directories"
+          },
+          {
+            "letter": "C",
+            "text": "Pipes use a different file descriptor format"
+          },
+          {
+            "letter": "D",
+            "text": "`lseek()` requires root"
+          }
+        ],
+        "answer": "A",
+        "explanation": "pipes are sequential; seeking has no meaning.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "A program writes 10 bytes, seeks to offset 40, and writes 10 more. What kind of file is created, and what is its logical size?",
+        "answer": "",
+        "explanation": "A file with a \"hole\" — a sparse region between bytes 10 and 39. The logical size is 50 bytes (10 + gap + 10), even though the gap was never explicitly written.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write two lines of C: one that writes `\"HELLO\"` at offset 100 using `pwrite`, and one that reads 5 bytes from offset 100 using `pread`.",
+        "answer": "",
+        "explanation": "\n```c\npwrite(fd, \"HELLO\", 5, 100);\npread(fd, buf, 5, 100);\n```",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN9 - Linux File Stats",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What is the fundamental difference between a hard link and a symbolic link?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Hard links can cross filesystems; symbolic links cannot"
+          },
+          {
+            "letter": "B",
+            "text": "A hard link points to the same i-node; a symbolic link stores a pathname"
+          },
+          {
+            "letter": "C",
+            "text": "Symbolic links share i-nodes; hard links do not"
+          },
+          {
+            "letter": "D",
+            "text": "There is no difference"
+          }
+        ],
+        "answer": "B",
+        "explanation": "a hard link is another name pointing to the same i-node; a symlink stores a path.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "When is a file's actual data deleted from disk?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "As soon as `unlink()` is called"
+          },
+          {
+            "letter": "B",
+            "text": "When the file size becomes zero"
+          },
+          {
+            "letter": "C",
+            "text": "When the link count drops to zero"
+          },
+          {
+            "letter": "D",
+            "text": "When `st_mtime` changes"
+          }
+        ],
+        "answer": "C",
+        "explanation": "data is deleted once the link count reaches zero.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "Why would you use `lstat()` instead of `stat()`?\nWrite a C code fragment that uses `stat()` on `argv[1]` and prints whether it is a directory, regular file, or something else.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`lstat()` is faster"
+          },
+          {
+            "letter": "B",
+            "text": "`lstat()` returns information about a symbolic link itself rather than following it to the target"
+          },
+          {
+            "letter": "C",
+            "text": "`lstat()` works on directories only"
+          },
+          {
+            "letter": "D",
+            "text": "`stat()` does not support permissions"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`lstat()` reports on the link itself; `stat()` follows the link.\n```c\nstruct stat sb;\nstat(argv[1], &sb);\nif (S_ISDIR(sb.st_mode))\nprintf(\"directory\\n\");\nelse if (S_ISREG(sb.st_mode))\nprintf(\"regular\\n\");\nelse\nprintf(\"other\\n\");\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What information does an i-node store vs a directory entry?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Both store the same data"
+          },
+          {
+            "letter": "B",
+            "text": "A directory entry stores a filename and i-node number; the i-node stores metadata like type, permissions, timestamps, and link count"
+          },
+          {
+            "letter": "C",
+            "text": "The i-node stores the filename; the directory entry stores permissions"
+          },
+          {
+            "letter": "D",
+            "text": "Neither stores timestamps"
+          }
+        ],
+        "answer": "B",
+        "explanation": "directory entries map names to i-node numbers; i-nodes hold all metadata.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is the key difference between `stat()` and `lstat()` when the target is a symbolic link?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`stat()` reports on the link itself; `lstat()` follows it"
+          },
+          {
+            "letter": "B",
+            "text": "`lstat()` reports on the symbolic link itself; `stat()` follows it to the target"
+          },
+          {
+            "letter": "C",
+            "text": "They always return identical results"
+          },
+          {
+            "letter": "D",
+            "text": "`lstat()` only works on directories"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`lstat()` reports on the link itself; `stat()` follows the link.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "Why can hard links not cross filesystem boundaries while symbolic links can?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Hard links use pathnames; symbolic links use i-nodes"
+          },
+          {
+            "letter": "B",
+            "text": "Hard links point to i-nodes, which are local to a filesystem; symbolic links store a pathname that can point anywhere"
+          },
+          {
+            "letter": "C",
+            "text": "The kernel forbids all cross-filesystem access"
+          },
+          {
+            "letter": "D",
+            "text": "Symbolic links require root"
+          }
+        ],
+        "answer": "B",
+        "explanation": "i-nodes are filesystem-local; pathnames are not.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What is the difference between `st_mtime` and `st_ctime`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They are identical"
+          },
+          {
+            "letter": "B",
+            "text": "`st_mtime` records content modification; `st_ctime` records i-node status changes like permissions or link count"
+          },
+          {
+            "letter": "C",
+            "text": "`st_ctime` is creation time"
+          },
+          {
+            "letter": "D",
+            "text": "`st_mtime` tracks access only"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`mtime` is data modification; `ctime` is metadata (i-node) status change.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Explain the difference between a directory entry and an i-node in one paragraph.",
+        "answer": "",
+        "explanation": "A directory entry is simply a mapping from a human-readable filename to an i-node number. The i-node itself contains all metadata about the file: type, permissions, ownership, timestamps, size, and link count.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write C that calls `stat()` on `argv[1]` and prints whether it is a directory, regular file, or other.",
+        "answer": "",
+        "explanation": "\n```c\nstruct stat sb;\nstat(argv[1], &sb);\nif (S_ISDIR(sb.st_mode))\nprintf(\"directory\\n\");\nelse if (S_ISREG(sb.st_mode))\nprintf(\"regular\\n\");\nelse\nprintf(\"other\\n\");\n```",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN10 - File Sharing",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "After calling `dup(fd)`, what do the original and new descriptors share?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Nothing — they are fully independent"
+          },
+          {
+            "letter": "B",
+            "text": "The file offset and status flags (same file table entry)"
+          },
+          {
+            "letter": "C",
+            "text": "Only the filename"
+          },
+          {
+            "letter": "D",
+            "text": "Only the permissions"
+          }
+        ],
+        "answer": "B",
+        "explanation": "both descriptors point to the same file table entry, so they share offset and flags.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What are the three kernel data structures involved when processes share files?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Stack, heap, and text segment"
+          },
+          {
+            "letter": "B",
+            "text": "Descriptor table, file table, and v-node table"
+          },
+          {
+            "letter": "C",
+            "text": "Process table, signal table, and pipe buffer"
+          },
+          {
+            "letter": "D",
+            "text": "i-node, superblock, and directory entry"
+          }
+        ],
+        "answer": "B",
+        "explanation": "the descriptor table (per process), file table (per open), and v-node table.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "Why is `dup2(fd, 1)` commonly used in Unix programs?\nYou opened a file with descriptor `newfd`. Write the `dup2()` call that redirects standard output to that file.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It closes all open files"
+          },
+          {
+            "letter": "B",
+            "text": "It redirects standard output to the file described by `fd`"
+          },
+          {
+            "letter": "C",
+            "text": "It creates a new process"
+          },
+          {
+            "letter": "D",
+            "text": "It opens a pipe"
+          }
+        ],
+        "answer": "B",
+        "explanation": "descriptor 1 is stdout, so redirecting it means printf output goes to the file.\n```c\ndup2(newfd, 1);\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why do two descriptors created by `dup()` affect each other's file position?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They don't — each has an independent offset"
+          },
+          {
+            "letter": "B",
+            "text": "They share the same file table entry, which contains the offset"
+          },
+          {
+            "letter": "C",
+            "text": "The kernel copies the offset on every read"
+          },
+          {
+            "letter": "D",
+            "text": "`dup()` creates a new file"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`dup()` makes both descriptors point to the same file table entry.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is the purpose of the three-level kernel structure (descriptor table, file table, v-node table)?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "To make file access slower"
+          },
+          {
+            "letter": "B",
+            "text": "To separate per-process state, per-open-file state, and per-file-on-disk state"
+          },
+          {
+            "letter": "C",
+            "text": "To support only one open file at a time"
+          },
+          {
+            "letter": "D",
+            "text": "To encrypt file data"
+          }
+        ],
+        "answer": "B",
+        "explanation": "it cleanly separates the three levels of file state.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "If you call `dup2(fd, 1)`, what happens to future `printf()` output?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It is discarded"
+          },
+          {
+            "letter": "B",
+            "text": "It goes to the file described by `fd` instead of the terminal"
+          },
+          {
+            "letter": "C",
+            "text": "It goes to standard error"
+          },
+          {
+            "letter": "D",
+            "text": "The program crashes"
+          }
+        ],
+        "answer": "B",
+        "explanation": "descriptor 1 is stdout; duplicating `fd` onto it redirects all stdout writes.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What does `dup2()` do if `newfd` is already open?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It fails with an error"
+          },
+          {
+            "letter": "B",
+            "text": "It silently closes `newfd` first, then duplicates `oldfd` onto it"
+          },
+          {
+            "letter": "C",
+            "text": "It closes `oldfd`"
+          },
+          {
+            "letter": "D",
+            "text": "It opens a new file"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`dup2()` silently closes `newfd` before reusing it.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Explain why `dup2(newfd, 1)` is useful for output redirection.",
+        "answer": "",
+        "explanation": "Standard output is descriptor 1. By making descriptor 1 point to a different file, all output that would normally go to the terminal goes to that file instead.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "A program creates a file, writes 8 bytes, calls `dup(fd)` to get `fd2`, then calls `lseek(fd2, 20, SEEK_SET)` and writes 4 bytes via `fd`. What offset does the write start at, and why?",
+        "answer": "",
+        "explanation": "The write starts at offset 20. Since both `fd` and `fd2` share the same file table entry, the `lseek` through `fd2` moves the shared offset to 20, and the subsequent write through `fd` uses that same offset.",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN11 - System Data Files",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why does Linux store password hashes in `/etc/shadow` instead of `/etc/passwd`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`/etc/passwd` is too small"
+          },
+          {
+            "letter": "B",
+            "text": "`/etc/passwd` is world-readable, so putting hashes there exposes them; `/etc/shadow` is restricted to root"
+          },
+          {
+            "letter": "C",
+            "text": "`/etc/shadow` is faster to read"
+          },
+          {
+            "letter": "D",
+            "text": "`/etc/passwd` does not support encryption"
+          }
+        ],
+        "answer": "B",
+        "explanation": "since `/etc/passwd` is readable by all users, putting hashes there is insecure.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Which file tracks users who are **currently** logged in?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`/var/log/wtmp`"
+          },
+          {
+            "letter": "B",
+            "text": "`/var/log/btmp`"
+          },
+          {
+            "letter": "C",
+            "text": "`/var/run/utmp`"
+          },
+          {
+            "letter": "D",
+            "text": "`/etc/group`"
+          }
+        ],
+        "answer": "C",
+        "explanation": "`utmp` tracks current sessions.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What information is stored in a directory entry vs in an i-node?\nGiven `struct stat statbuf;` from a `stat()` call, write the function call that retrieves the password-file entry for the file owner.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "A directory entry stores all file data; i-nodes are unused"
+          },
+          {
+            "letter": "B",
+            "text": "A directory entry stores a filename and i-node number; the i-node stores metadata like permissions, size, and timestamps"
+          },
+          {
+            "letter": "C",
+            "text": "They store the same information"
+          },
+          {
+            "letter": "D",
+            "text": "The i-node stores only the filename"
+          }
+        ],
+        "answer": "B",
+        "explanation": "directory entries map names to i-node numbers; i-nodes hold all metadata.\n```c\nstruct passwd *pwd = getpwuid(statbuf.st_uid);\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why is `/etc/passwd` world-readable while `/etc/shadow` is restricted to root?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They contain the same data"
+          },
+          {
+            "letter": "B",
+            "text": "`/etc/passwd` has general account info; `/etc/shadow` has password hashes, so restricting access protects credentials"
+          },
+          {
+            "letter": "C",
+            "text": "`/etc/shadow` is a backup of `/etc/passwd`"
+          },
+          {
+            "letter": "D",
+            "text": "Only root can create user accounts"
+          }
+        ],
+        "answer": "B",
+        "explanation": "password hashes in a world-readable file would be a security risk.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is the difference between `/var/run/utmp`, `/var/log/wtmp`, and `/var/log/btmp`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They are three copies of the same data"
+          },
+          {
+            "letter": "B",
+            "text": "`utmp` tracks current sessions, `wtmp` tracks historical logins, `btmp` tracks failed attempts"
+          },
+          {
+            "letter": "C",
+            "text": "`wtmp` is for current users; `utmp` is for history"
+          },
+          {
+            "letter": "D",
+            "text": "`btmp` tracks successful logins only"
+          }
+        ],
+        "answer": "B",
+        "explanation": "each file serves a different tracking purpose.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "When would you use `getpwuid()` vs `getpwnam()`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They are identical"
+          },
+          {
+            "letter": "B",
+            "text": "`getpwuid()` looks up by numeric UID; `getpwnam()` looks up by username string"
+          },
+          {
+            "letter": "C",
+            "text": "`getpwnam()` looks up by UID"
+          },
+          {
+            "letter": "D",
+            "text": "Neither returns useful data"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`getpwuid()` uses a number; `getpwnam()` uses a string.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What kind of information does `/etc/group` store?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "User passwords"
+          },
+          {
+            "letter": "B",
+            "text": "Group names, GIDs, and group member lists"
+          },
+          {
+            "letter": "C",
+            "text": "Hardware configuration"
+          },
+          {
+            "letter": "D",
+            "text": "Network routes"
+          }
+        ],
+        "answer": "B",
+        "explanation": "group accounts and membership info.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Why does `/etc/shadow` exist as a separate file from `/etc/passwd`?",
+        "answer": "",
+        "explanation": "`/etc/passwd` is readable by everyone for general account lookups. Placing password hashes in a root-only file (`/etc/shadow`) limits who can attempt to crack them.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write pseudocode for a program that takes a pathname, calls `stat()` to get the owner's UID, then uses `getpwuid()` to look up and print the owner's login name and shell.",
+        "answer": "",
+        "explanation": "\n- call `stat()` on the pathname to get `st_uid`\n- call `getpwuid(st_uid)` to retrieve a `struct passwd *`\n- print `pw_name` and `pw_shell`",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN12 - Process Environment and Memory Layout",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What are the five memory segments of a running process?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Input, output, error, log, data"
+          },
+          {
+            "letter": "B",
+            "text": "Text, initialized data, BSS, heap, and stack"
+          },
+          {
+            "letter": "C",
+            "text": "Code, cache, buffer, swap, ROM"
+          },
+          {
+            "letter": "D",
+            "text": "Header, body, footer, index, pointer"
+          }
+        ],
+        "answer": "B",
+        "explanation": "text, initialized data, BSS, heap, and stack.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is the key difference between `malloc()` and `calloc()`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`malloc()` is for strings only"
+          },
+          {
+            "letter": "B",
+            "text": "`calloc()` allocates and zero-initializes the memory; `malloc()` does not initialize"
+          },
+          {
+            "letter": "C",
+            "text": "`calloc()` is slower because it uses the kernel"
+          },
+          {
+            "letter": "D",
+            "text": "They are identical"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`calloc()` initializes to zero bits; `malloc()` returns uninitialized memory.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "Where does the stack differ from the heap in purpose?\nWrite one line of C that prints the value of the `HOME` environment variable.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The stack holds dynamic allocations; the heap holds function call data"
+          },
+          {
+            "letter": "B",
+            "text": "The stack holds function call frames and local variables; the heap holds dynamically allocated memory"
+          },
+          {
+            "letter": "C",
+            "text": "They serve the same purpose"
+          },
+          {
+            "letter": "D",
+            "text": "The heap is managed by the compiler; the stack is managed by the programmer"
+          }
+        ],
+        "answer": "B",
+        "explanation": "the stack is for function execution context; the heap is for programmer-controlled dynamic allocation.\n```c\nprintf(\"HOME=%s\\n\", getenv(\"HOME\"));\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "How are environment variables passed to a running program?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The program must read them from a config file"
+          },
+          {
+            "letter": "B",
+            "text": "They are passed as an array of C-string pointers accessible through `environ` or `getenv()`"
+          },
+          {
+            "letter": "C",
+            "text": "The kernel injects them into the heap at runtime"
+          },
+          {
+            "letter": "D",
+            "text": "They are compiled into the binary"
+          }
+        ],
+        "answer": "B",
+        "explanation": "envvars are an array of strings accessible via `environ` and `getenv()`.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is the BSS segment for?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Dynamic memory allocation"
+          },
+          {
+            "letter": "B",
+            "text": "Static variables that are declared but not initialized — they are automatically zeroed"
+          },
+          {
+            "letter": "C",
+            "text": "Executable machine instructions"
+          },
+          {
+            "letter": "D",
+            "text": "Function call return addresses"
+          }
+        ],
+        "answer": "B",
+        "explanation": "BSS holds uninitialized statics; the OS zeros them at load time.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "Why does `calloc()` exist when `malloc()` already allocates memory?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`calloc()` is just an alias"
+          },
+          {
+            "letter": "B",
+            "text": "`calloc()` allocates AND zero-initializes the memory, which `malloc()` does not"
+          },
+          {
+            "letter": "C",
+            "text": "`calloc()` allocates from the stack"
+          },
+          {
+            "letter": "D",
+            "text": "`calloc()` is for strings only"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`calloc()` provides zero-initialized memory as a convenience.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What happens if you never call `free()` on memory allocated with `malloc()`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The kernel automatically reclaims it during execution"
+          },
+          {
+            "letter": "B",
+            "text": "The memory is leaked — it remains allocated until the process terminates"
+          },
+          {
+            "letter": "C",
+            "text": "The program crashes immediately"
+          },
+          {
+            "letter": "D",
+            "text": "The OS swaps it to disk"
+          }
+        ],
+        "answer": "B",
+        "explanation": "un-freed heap memory leaks until the process exits.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Compare the stack and heap in terms of what they hold and who manages them.",
+        "answer": "",
+        "explanation": "The stack automatically manages function call frames, local variables, and return addresses. The heap is managed by the programmer through `malloc()`/`free()` for dynamically sized data that persists beyond a single function call.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Write a short C program that prints the current `HOME` variable, sets `TEST11` to `abcd`, and prints it.",
+        "answer": "",
+        "explanation": "\n```c\n#include <stdio.h>\n#include <stdlib.h>\nint main(void) {\nprintf(\"HOME=%s\\n\", getenv(\"HOME\"));\nsetenv(\"TEST11\", \"abcd\", 1);\nprintf(\"TEST11=%s\\n\", getenv(\"TEST11\"));\nreturn 0;\n}\n```",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN13 - Process",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "After `fork()`, how do the parent and child determine which is which?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They cannot"
+          },
+          {
+            "letter": "B",
+            "text": "`fork()` returns 0 to the child and the child's PID to the parent"
+          },
+          {
+            "letter": "C",
+            "text": "`fork()` returns 0 to the parent and -1 to the child"
+          },
+          {
+            "letter": "D",
+            "text": "Both get the same return value"
+          }
+        ],
+        "answer": "B",
+        "explanation": "child gets 0, parent gets the child PID.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is a race condition?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "A bug where the program runs too fast"
+          },
+          {
+            "letter": "B",
+            "text": "A situation where the outcome depends on the unpredictable order in which processes execute"
+          },
+          {
+            "letter": "C",
+            "text": "A condition that only occurs in single-threaded programs"
+          },
+          {
+            "letter": "D",
+            "text": "An error caused by using too many file descriptors"
+          }
+        ],
+        "answer": "B",
+        "explanation": "race conditions arise from non-deterministic execution order when accessing shared state.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What does `wait()` do in the parent process?\nWrite the line that prints a child's exit code after `wait(&status)`.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Creates a new child"
+          },
+          {
+            "letter": "B",
+            "text": "Blocks until one of its children terminates"
+          },
+          {
+            "letter": "C",
+            "text": "Sends a signal to the child"
+          },
+          {
+            "letter": "D",
+            "text": "Frees the child's memory immediately"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`wait()` blocks the parent until a child exits.\n```c\nprintf(\"%d\\n\", WEXITSTATUS(status));\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What does `fork()` return to the child vs the parent?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Both receive the same value"
+          },
+          {
+            "letter": "B",
+            "text": "The child gets 0; the parent gets the child's PID"
+          },
+          {
+            "letter": "C",
+            "text": "The parent gets 0; the child gets -1"
+          },
+          {
+            "letter": "D",
+            "text": "Both get the child's PID"
+          }
+        ],
+        "answer": "B",
+        "explanation": "the return value is how they distinguish roles.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Why are race conditions a concern after `fork()`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The child always runs first"
+          },
+          {
+            "letter": "B",
+            "text": "The execution order between parent and child is unpredictable, so accessing shared state can produce different results each run"
+          },
+          {
+            "letter": "C",
+            "text": "`fork()` doesn't create a real process"
+          },
+          {
+            "letter": "D",
+            "text": "Race conditions only happen with threads, not processes"
+          }
+        ],
+        "answer": "B",
+        "explanation": "the OS scheduler decides who runs; shared state access becomes non-deterministic.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is the role of `wait()` in process management?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It creates a child process"
+          },
+          {
+            "letter": "B",
+            "text": "It blocks the parent until a child terminates and collects its exit status"
+          },
+          {
+            "letter": "C",
+            "text": "It sends a signal to the child"
+          },
+          {
+            "letter": "D",
+            "text": "It pauses the child"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`wait()` reaps the child and collects its exit status.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What value does `system()` return if the `exec` step fails?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "0"
+          },
+          {
+            "letter": "B",
+            "text": "-1"
+          },
+          {
+            "letter": "C",
+            "text": "127"
+          },
+          {
+            "letter": "D",
+            "text": "255"
+          }
+        ],
+        "answer": "C",
+        "explanation": "127 indicates `exec` failure inside `system()`.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Define a race condition in your own words using the fork context.",
+        "answer": "",
+        "explanation": "After `fork()`, both parent and child may try to read or write the same resource. Since we can't predict which runs first, the outcome depends on timing — this is a race condition.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "A process forks, and both parent and child run a loop printing 1 to 3. How many total lines are printed, and why?",
+        "answer": "",
+        "explanation": "Six total lines: the parent prints 3 and the child prints 3. After `fork()`, both processes independently run the full loop.",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN14 - Inter-Process Communication (Pipes, popen, FIFOs)",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What is the main limitation of ordinary (unnamed) pipes?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They can only carry integers"
+          },
+          {
+            "letter": "B",
+            "text": "They are half-duplex and restricted to related processes"
+          },
+          {
+            "letter": "C",
+            "text": "They require root access"
+          },
+          {
+            "letter": "D",
+            "text": "They cannot be used with `fork()`"
+          }
+        ],
+        "answer": "B",
+        "explanation": "unnamed pipes are half-duplex and mainly for related processes.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "When would you use a FIFO instead of an unnamed pipe?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "When you need full-duplex communication"
+          },
+          {
+            "letter": "B",
+            "text": "When the communicating processes are unrelated and have no common ancestor"
+          },
+          {
+            "letter": "C",
+            "text": "When you need to send signals"
+          },
+          {
+            "letter": "D",
+            "text": "FIFOs and pipes are interchangeable"
+          }
+        ],
+        "answer": "B",
+        "explanation": "FIFOs are named, so unrelated processes can open the same path.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What happens when a process writes to a pipe whose read end has been closed?\nWrite the `mkfifo()` call that creates a FIFO named `myfifo` with mode `0666`.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The data is buffered indefinitely"
+          },
+          {
+            "letter": "B",
+            "text": "`SIGPIPE` is generated"
+          },
+          {
+            "letter": "C",
+            "text": "The write silently succeeds"
+          },
+          {
+            "letter": "D",
+            "text": "The kernel creates a new reader"
+          }
+        ],
+        "answer": "B",
+        "explanation": "writing to a pipe with no reader triggers `SIGPIPE`.\n```c\nmkfifo(\"myfifo\", 0666);\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "Why can't you use an unnamed pipe to communicate between two completely unrelated processes?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Unnamed pipes require an existing file"
+          },
+          {
+            "letter": "B",
+            "text": "Unnamed pipes exist only within the kernel and are inherited through fork — unrelated processes cannot access them"
+          },
+          {
+            "letter": "C",
+            "text": "Unnamed pipes are bidirectional"
+          },
+          {
+            "letter": "D",
+            "text": "The kernel blocks unrelated access"
+          }
+        ],
+        "answer": "B",
+        "explanation": "pipe descriptors are only accessible to the creating process and its descendants.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "What is the key difference between a pipe and a FIFO?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Pipes have names in the filesystem; FIFOs do not"
+          },
+          {
+            "letter": "B",
+            "text": "A FIFO has a name in the filesystem, so unrelated processes can open it; pipes are anonymous"
+          },
+          {
+            "letter": "C",
+            "text": "FIFOs are bidirectional; pipes are not"
+          },
+          {
+            "letter": "D",
+            "text": "Pipes support message types"
+          }
+        ],
+        "answer": "B",
+        "explanation": "FIFOs are named; pipes are anonymous.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "In `popen(cmd, \"r\")`, what is the calling process reading?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "The command's standard error"
+          },
+          {
+            "letter": "B",
+            "text": "The command's standard output"
+          },
+          {
+            "letter": "C",
+            "text": "A file named `cmd`"
+          },
+          {
+            "letter": "D",
+            "text": "The command's source code"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`\"r\"` mode reads the command's stdout.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What happens when you try to open a FIFO for writing with `O_NONBLOCK` and no reader exists?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It blocks until a reader appears"
+          },
+          {
+            "letter": "B",
+            "text": "It succeeds and discards data"
+          },
+          {
+            "letter": "C",
+            "text": "It fails immediately with `ENXIO`"
+          },
+          {
+            "letter": "D",
+            "text": "It creates a reader automatically"
+          }
+        ],
+        "answer": "C",
+        "explanation": "nonblocking write-open with no reader returns ENXIO.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Why are FIFOs useful when two processes don't share a common ancestor?",
+        "answer": "",
+        "explanation": "Unrelated processes can't inherit pipe descriptors. FIFOs have filesystem names, so any process can open the same path to communicate.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "In a parent-child pipe scenario where data flows from parent to child, which ends should each close, and which should each use?",
+        "answer": "",
+        "explanation": "\n- Parent closes `fd[0]` (read end) and writes via `fd[1]`\n- Child closes `fd[1]` (write end) and reads via `fd[0]`",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN15 - IPC Signals",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What are the three ways a process can respond to a signal?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Read it, write it, or delete it"
+          },
+          {
+            "letter": "B",
+            "text": "Ignore it, catch it with a handler, or let the default action occur"
+          },
+          {
+            "letter": "C",
+            "text": "Forward it, queue it, or reject it"
+          },
+          {
+            "letter": "D",
+            "text": "Log it, buffer it, or resend it"
+          }
+        ],
+        "answer": "B",
+        "explanation": "ignore, catch/handle, or default action.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Which two signals can never be caught or ignored?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`SIGINT` and `SIGQUIT`"
+          },
+          {
+            "letter": "B",
+            "text": "`SIGUSR1` and `SIGUSR2`"
+          },
+          {
+            "letter": "C",
+            "text": "`SIGKILL` and `SIGSTOP`"
+          },
+          {
+            "letter": "D",
+            "text": "`SIGALRM` and `SIGPIPE`"
+          }
+        ],
+        "answer": "C",
+        "explanation": "`SIGKILL` and `SIGSTOP` cannot be caught or ignored by design.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is the difference between `kill()` and `raise()`?\nWrite the two C lines that install `handle_alarm` as the handler for `SIGALRM` and then schedule that alarm for 5 seconds.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`kill()` terminates a process; `raise()` creates one"
+          },
+          {
+            "letter": "B",
+            "text": "`kill()` sends a signal to another process; `raise()` sends a signal to yourself"
+          },
+          {
+            "letter": "C",
+            "text": "They do the same thing"
+          },
+          {
+            "letter": "D",
+            "text": "`raise()` is only for `SIGKILL`"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`kill()` targets another process; `raise()` targets the calling process.\n```c\nsignal(SIGALRM, handle_alarm);\nalarm(5);\n```",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What are the three things a process can do when it receives a signal?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Read it, parse it, or store it"
+          },
+          {
+            "letter": "B",
+            "text": "Ignore it, catch it with a custom handler, or let the default action happen"
+          },
+          {
+            "letter": "C",
+            "text": "Forward it, duplicate it, or delete it"
+          },
+          {
+            "letter": "D",
+            "text": "Log it, queue it, or return it"
+          }
+        ],
+        "answer": "B",
+        "explanation": "ignore, catch/handle, or default.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Why can't a process catch or ignore `SIGKILL`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`SIGKILL` doesn't exist"
+          },
+          {
+            "letter": "B",
+            "text": "The OS must always be able to forcefully terminate any process, so `SIGKILL` is uncatchable by design"
+          },
+          {
+            "letter": "C",
+            "text": "`SIGKILL` is the same as `SIGINT`"
+          },
+          {
+            "letter": "D",
+            "text": "Only root processes receive `SIGKILL`"
+          }
+        ],
+        "answer": "B",
+        "explanation": "the kernel guarantees it can always kill a process.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is the difference between `kill()` and `raise()`?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They are identical"
+          },
+          {
+            "letter": "B",
+            "text": "`kill()` sends a signal to another process; `raise()` sends a signal to the calling process"
+          },
+          {
+            "letter": "C",
+            "text": "`raise()` creates a new process"
+          },
+          {
+            "letter": "D",
+            "text": "`kill()` always terminates the target"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`kill()` targets others; `raise()` targets self.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "How do `alarm()` and `pause()` work together?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "`alarm()` pauses the process; `pause()` sets a timer"
+          },
+          {
+            "letter": "B",
+            "text": "`alarm()` schedules a `SIGALRM`; `pause()` suspends the process until a signal arrives"
+          },
+          {
+            "letter": "C",
+            "text": "Both are deprecated"
+          },
+          {
+            "letter": "D",
+            "text": "`pause()` cancels the alarm"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`alarm()` sets the timer; `pause()` waits for any signal.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Describe the three broad ways a process may deal with a signal.",
+        "answer": "",
+        "explanation": "When a signal arrives, the process can: (1) ignore it entirely, (2) run a custom handler function, or (3) take the signal's default action (which may be terminate, stop, or core dump).",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "A parent forks a child. Three seconds later the child sends `SIGALRM` to the parent. The parent has installed a handler and called `pause()`. Describe step by step what happens.",
+        "answer": "",
+        "explanation": "\n- Parent forks child\n- Parent installs a `SIGALRM` handler and calls `pause()` (blocking)\n- Child sleeps 3 seconds, then sends `SIGALRM` to parent via `kill(getppid(), SIGALRM)`\n- Parent wakes from `pause()`, runs the handler, then continues",
+        "source": "Set 2"
+      }
+    ]
+  },
+  {
+    "title": "LN16 - IPC Message Queues",
+    "questions": [
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "What makes message queues different from pipes in terms of message handling?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Pipes allow type-based selection; message queues do not"
+          },
+          {
+            "letter": "B",
+            "text": "Message queues allow receiving messages by type, not just strict FIFO order"
+          },
+          {
+            "letter": "C",
+            "text": "Message queues are user-space only"
+          },
+          {
+            "letter": "D",
+            "text": "Pipes store messages permanently"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`msgrcv()` can select messages by their type field, unlike strict FIFO pipes.",
+        "source": "Set 1"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Why do message queues help reduce race conditions compared to shared memory?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They use encryption"
+          },
+          {
+            "letter": "B",
+            "text": "Communication is serialized through kernel-managed operations"
+          },
+          {
+            "letter": "C",
+            "text": "They block all signals"
+          },
+          {
+            "letter": "D",
+            "text": "They are faster than direct memory access"
+          }
+        ],
+        "answer": "B",
+        "explanation": "send/receive go through kernel calls, serializing access to the queue data.",
+        "source": "Set 1"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is the purpose of the `long mtype` field in a message structure?\nWrite the `msgget()` call that creates or opens a queue using `key` with permissions `0644`.",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It stores the message priority for scheduling"
+          },
+          {
+            "letter": "B",
+            "text": "It categorizes the message so that receivers can select by type"
+          },
+          {
+            "letter": "C",
+            "text": "It tracks the sender's PID"
+          },
+          {
+            "letter": "D",
+            "text": "It sets the queue permissions"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`mtype` lets receivers filter for specific categories of messages.\n```c\nmsgget(key, 0644 | IPC_CREAT);\n```\n## Cross-Lecture Final Drill Set\n## Ultra-short recall prompts\nTry to answer these without looking:\n1. What is the difference between static and shared libraries?\n2. How do single quotes and double quotes differ in shell?\n3. Why can shell `return` be dangerous for large values?\n4. Why are system calls more expensive than library calls?\n5. What do file descriptors `0`, `1`, and `2` represent?\n6. What is the key advantage of `pread()` / `pwrite()`?\n7. How does `umask` affect new file permissions?\n8. What is the difference between hard links and symbolic links?\n9. What do duplicated descriptors share after `dup()`?\n10. Why does `/etc/shadow` exist?\n11. What are the five memory segments of a process?\n12. How do parent and child distinguish themselves after `fork()`?\n13. When would you use a FIFO instead of a pipe?\n14. Which signals cannot be caught?\n15. What does `mtype` do in a message queue?\n## Source Lecture Files Used\nOnly these lecture notes were used to build this review:\n- `LN3-DirectoryAndLibraries.pdf`\n- `LN5-ShellProgramming.pdf`\n- `LN6-ShellProgramming.pdf`\n- `LN7-SystemCall-Part1.pdf`\n- `LN8-SystemCalls-Part2.pdf`\n- `LN9-LinuxFileStats.pdf`\n- `LN10-FileSharing.pdf`\n- `LN11-SystemDataFile.pdf`\n- `LN12-ProcessEnvironAndMemoryLayout.pdf`\n- `LN13-Process.pdf`\n- `LN14-InterprocessCommunication.pdf`\n- `LN15-IPC-Singal.pdf`\n- `LN16-IPC-MQ.pdf`\n## Question Count Summary\n- 13 lecture-note sections\n- 39 multiple choice questions total\n- 13 applied programming questions total\n- 52 practice questions total",
+        "source": "Set 1"
+      },
+      {
+        "id": "1",
+        "type": "mc",
+        "text": "How do message queues differ from pipes in what they can deliver?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Pipes allow type-based selection; queues do not"
+          },
+          {
+            "letter": "B",
+            "text": "Message queues allow receiving by message type, not just FIFO order; pipes are strictly sequential"
+          },
+          {
+            "letter": "C",
+            "text": "Pipes store messages permanently"
+          },
+          {
+            "letter": "D",
+            "text": "Message queues are user-space only"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`msgrcv()` can select by type; pipes are FIFO only.",
+        "source": "Set 2"
+      },
+      {
+        "id": "2",
+        "type": "mc",
+        "text": "Why must a message struct start with a `long mtype` field?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "It stores the sender's PID"
+          },
+          {
+            "letter": "B",
+            "text": "The kernel uses `mtype` to enable type-based message selection by receivers"
+          },
+          {
+            "letter": "C",
+            "text": "It is the message size"
+          },
+          {
+            "letter": "D",
+            "text": "It is optional and has no effect"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`mtype` enables type-based filtering by receivers.",
+        "source": "Set 2"
+      },
+      {
+        "id": "3",
+        "type": "mc",
+        "text": "What is the trade-off of using message queues for IPC?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "They are faster than shared memory but less reliable"
+          },
+          {
+            "letter": "B",
+            "text": "They serialize communication (reducing races) but each operation requires a system call, adding overhead"
+          },
+          {
+            "letter": "C",
+            "text": "They have no trade-offs"
+          },
+          {
+            "letter": "D",
+            "text": "They can only pass integers"
+          }
+        ],
+        "answer": "B",
+        "explanation": "reduced races but increased overhead from kernel calls.",
+        "source": "Set 2"
+      },
+      {
+        "id": "4",
+        "type": "mc",
+        "text": "What does `IPC_RMID` do?",
+        "options": [
+          {
+            "letter": "A",
+            "text": "Pauses the queue"
+          },
+          {
+            "letter": "B",
+            "text": "Removes the queue from the kernel entirely"
+          },
+          {
+            "letter": "C",
+            "text": "Reads the next message"
+          },
+          {
+            "letter": "D",
+            "text": "Changes the queue permissions"
+          }
+        ],
+        "answer": "B",
+        "explanation": "`IPC_RMID` destroys the queue.",
+        "source": "Set 2"
+      },
+      {
+        "id": "5",
+        "type": "sa",
+        "text": "Why do message queues help reduce race conditions compared to shared memory?",
+        "answer": "",
+        "explanation": "Message queues serialize communication — each send/receive goes through the kernel, which prevents the simultaneous uncoordinated access that causes race conditions in shared memory.",
+        "source": "Set 2"
+      },
+      {
+        "id": "6",
+        "type": "ap",
+        "text": "Outline the full sender/receiver workflow for a message queue program pair.",
+        "answer": "",
+        "explanation": "\n- Both sender and receiver call `ftok()` with the same path and ID\n- Sender creates the queue with `msgget(key, 0644 | IPC_CREAT)`\n- Receiver opens it with `msgget(key, 0644)`\n- Sender fills a struct (starting with `long mtype`) and calls `msgsnd()`\n- Receiver calls `msgrcv()` to fetch a message, optionally by type\n- Cleanup: `msgctl(msqid, IPC_RMID, NULL)`\n## Final Use Suggestion\n1. Do the first guide for broad recall\n2. Do this second guide closed-book for applied understanding\n3. Rewrite any missed applied questions by hand\n4. Focus especially on `fork`, `wait`, `dup2`, `lseek`, `umask`, pipes, signals, and message queues",
+        "source": "Set 2"
+      }
+    ]
+  }
+]
